@@ -5,28 +5,26 @@ package application.model;
  */
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Document
-public class User implements Serializable {
+public class User extends PersistedObject implements Serializable {
 
-    @Id
-    private ObjectId id;
-
+    @NotNull
     private String firstName;
+
+    @NotNull
     private String lastName;
+
+    @NotNull
     private String email;
 
     @JsonIgnore
+    @NotNull
     public String password;
-
-    public ObjectId getId() {
-        return id;
-    }
 
     public String getFirstName() {
         return firstName;
@@ -50,6 +48,4 @@ public class User implements Serializable {
         this.email = email;
         this.password = password;
     }
-
-    User(){}
 }
