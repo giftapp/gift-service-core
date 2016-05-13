@@ -10,6 +10,7 @@ import application.restControllers.exceptions.InvalidObjectIdException;
 import application.restControllers.exceptions.ObjectNotFoundException;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -41,23 +42,23 @@ public class UserController {
     //REST ENDPOINTS
 
     //GET
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
 
-    @RequestMapping(path = "/{userId}" ,method = RequestMethod.GET)
+    @RequestMapping(path = "/{userId}" ,method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public User getUser(@PathVariable String userId) {
         return this.validateUser(userId);
     }
 
-    @RequestMapping(path = "/{userId}/event" ,method = RequestMethod.GET)
+    @RequestMapping(path = "/{userId}/event" ,method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Event> getUserEvents(@PathVariable String userId) {
         User user = this.validateUser(userId);
         return eventRepository.eventsForUser(user.getId());
     }
 
-    @RequestMapping(path = "/{userId}/gift" ,method = RequestMethod.GET)
+    @RequestMapping(path = "/{userId}/gift" ,method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Gift> getUserGifts(@PathVariable String userId) {
         User user = this.validateUser(userId);
         return giftRepository.giftsForUser(user.getId());

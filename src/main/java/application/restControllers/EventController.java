@@ -6,6 +6,7 @@ import application.restControllers.exceptions.InvalidObjectIdException;
 import application.restControllers.exceptions.ObjectNotFoundException;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
@@ -27,7 +28,7 @@ public class EventController {
     private EventRepository eventRepository;
 
     //REST ENDPOINTS
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Event> getAllEvents(@RequestParam(value="forToday", required=false, defaultValue = "false") Boolean isForToday) {
         if (isForToday) {
             return eventRepository.eventsForDay(new Date());
@@ -36,7 +37,7 @@ public class EventController {
         }
     }
 
-    @RequestMapping(path = "/{eventId}" ,method = RequestMethod.GET)
+    @RequestMapping(path = "/{eventId}" ,method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public Event getEvent(@PathVariable String eventId) {
         return this.validateEvent(eventId);
     }

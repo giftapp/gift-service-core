@@ -6,6 +6,7 @@ import application.restControllers.exceptions.InvalidObjectIdException;
 import application.restControllers.exceptions.ObjectNotFoundException;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -28,12 +29,12 @@ public class HallController {
     private HallRepository hallRepository;
 
     //REST ENDPOINTS
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Hall> getAllHalls() {
         return hallRepository.findAll();
     }
 
-    @RequestMapping(path = "/{hallId}" ,method = RequestMethod.GET)
+    @RequestMapping(path = "/{hallId}" ,method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public Hall getHall(@PathVariable String hallId) {
         return this.validateHall(hallId);
     }

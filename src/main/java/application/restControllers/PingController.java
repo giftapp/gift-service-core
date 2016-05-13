@@ -5,6 +5,7 @@ package application.restControllers;
  */
 
 import application.model.Ping;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/ping")
 public class PingController {
 
-    @RequestMapping(method= RequestMethod.GET)
+    @RequestMapping(method= RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public Ping ping() {
         return new Ping();
     }
