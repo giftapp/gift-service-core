@@ -6,7 +6,6 @@ import application.restControllers.exceptions.InvalidObjectIdException;
 import application.restControllers.exceptions.ObjectNotFoundException;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -26,7 +25,6 @@ public class HallController {
     private static final Logger log = Logger.getLogger( UserController.class.getName() );
 
     @Autowired
-    @Qualifier("hallRepository")
     private HallRepository hallRepository;
 
     //REST ENDPOINTS

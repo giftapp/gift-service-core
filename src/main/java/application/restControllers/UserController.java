@@ -10,7 +10,6 @@ import application.restControllers.exceptions.InvalidObjectIdException;
 import application.restControllers.exceptions.ObjectNotFoundException;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -31,15 +30,12 @@ public class UserController {
     private static final Logger log = Logger.getLogger( UserController.class.getName() );
 
     @Autowired
-    @Qualifier("userRepository")
     private UserRepository userRepository;
 
     @Autowired
-    @Qualifier("eventRepository")
     private EventRepository eventRepository;
 
     @Autowired
-//    @Qualifier("giftRepository")
     private GiftRepository giftRepository;
 
     //REST ENDPOINTS
