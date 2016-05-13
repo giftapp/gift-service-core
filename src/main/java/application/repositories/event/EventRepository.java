@@ -9,6 +9,7 @@ import java.util.Optional;
 /**
  * Created by matan on 13/05/2016.
  */
-public interface EventRepository extends MongoRepository<Event, Long> {
+public interface EventRepository extends MongoRepository<Event, Long>, EventRepositoryCustom {
+
     Optional<Event> findById(ObjectId objectId);
 }

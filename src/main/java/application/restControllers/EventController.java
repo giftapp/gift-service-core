@@ -7,11 +7,9 @@ import application.restControllers.exceptions.ObjectNotFoundException;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -32,8 +30,12 @@ public class EventController {
 
     //REST ENDPOINTS
     @RequestMapping(method = RequestMethod.GET)
-    public List<Event> getAllEvents() {
-        return eventRepository.findAll();
+    public List<Event> getAllEvents(@RequestParam(value="forToday", required=false, defaultValue = "false") Boolean isForToday) {
+        if (isForToday) {
+            return eventRepository.eventsForDay(new Date());
+        }else {
+            return eventRepository.findAll();
+        }
     }
 
     @RequestMapping(path = "/{eventId}" ,method = RequestMethod.GET)
