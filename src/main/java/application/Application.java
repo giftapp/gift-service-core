@@ -4,10 +4,9 @@ package application;
  * Created by matan on 09/05/2016.
  */
 
-import application.model.Event;
-import application.model.Hall;
-import application.model.User;
+import application.model.*;
 import application.repositories.event.EventRepository;
+import application.repositories.gift.GiftRepository;
 import application.repositories.hall.HallRepository;
 import application.repositories.user.UserRepository;
 import org.springframework.boot.CommandLineRunner;
@@ -20,11 +19,12 @@ import java.util.Date;
 @SpringBootApplication
 public class Application {
     @Bean
-    CommandLineRunner init(UserRepository userRepository, HallRepository hallRepository, EventRepository eventRepository) {
+    CommandLineRunner init(UserRepository userRepository, HallRepository hallRepository, EventRepository eventRepository, GiftRepository giftRepository) {
         return (evt) -> {
             userRepository.deleteAll();
             hallRepository.deleteAll();
             eventRepository.deleteAll();
+            giftRepository.deleteAll();
 
             User userMatan = new User("Matan", "Lachmish", "m@gmail.com", "1234");
             userRepository.save(userMatan);
@@ -36,11 +36,15 @@ public class Application {
             eventRepository.save(wedding1);
 
             wedding1.addUser(userMatan.getId());
-            havatRonit.addEvent(wedding1.getId());
-
-            hallRepository.save(havatRonit);
             eventRepository.save(wedding1);
-            userRepository.save(userMatan);
+
+            Payment payment = new Payment(userMatan.getId(), wedding1.getId(), 1000, 2);
+            Toast toast = new Toast(userMatan.getId(), wedding1.getId());
+            toast.setText("Good luck!");
+            Gift gift = new Gift(userMatan.getId(), wedding1.getId());
+            gift.setPayment(payment);
+            gift.setToast(toast);
+            giftRepository.save(gift);
         };
     }
 

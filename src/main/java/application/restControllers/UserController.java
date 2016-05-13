@@ -1,8 +1,10 @@
 package application.restControllers;
 
 import application.model.Event;
+import application.model.Gift;
 import application.model.User;
 import application.repositories.event.EventRepository;
+import application.repositories.gift.GiftRepository;
 import application.repositories.user.UserRepository;
 import application.restControllers.exceptions.InvalidObjectIdException;
 import application.restControllers.exceptions.ObjectNotFoundException;
@@ -36,7 +38,13 @@ public class UserController {
     @Qualifier("eventRepository")
     private EventRepository eventRepository;
 
+    @Autowired
+//    @Qualifier("giftRepository")
+    private GiftRepository giftRepository;
+
     //REST ENDPOINTS
+
+    //GET
     @RequestMapping(method = RequestMethod.GET)
     public List<User> getAllUsers() {
         return userRepository.findAll();
@@ -51,6 +59,12 @@ public class UserController {
     public List<Event> getUserEvents(@PathVariable String userId) {
         User user = this.validateUser(userId);
         return eventRepository.eventsForUser(user.getId());
+    }
+
+    @RequestMapping(path = "/{userId}/gift" ,method = RequestMethod.GET)
+    public List<Gift> getUserGifts(@PathVariable String userId) {
+        User user = this.validateUser(userId);
+        return giftRepository.giftsForUser(user.getId());
     }
 
     //Utils

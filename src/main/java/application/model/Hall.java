@@ -1,13 +1,10 @@
 package application.model;
 
-import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by matan on 13/05/2016.
@@ -26,13 +23,10 @@ public class Hall extends PersistedObject implements Serializable {
 
     private String URL;
 
-    private List<ObjectId> eventsId;
-
     public Hall(String name, String address, String URL) {
         this.name = name;
         this.address = address;
         this.URL = URL;
-        this.eventsId = new ArrayList<ObjectId>();
     }
 
     public String getName() {
@@ -59,18 +53,6 @@ public class Hall extends PersistedObject implements Serializable {
         this.URL = URL;
     }
 
-    public List<ObjectId> getEventsId() {
-        return eventsId;
-    }
-
-    public void setEventsId(List<ObjectId> eventsId) {
-        this.eventsId = eventsId;
-    }
-
-    public void addEvent (ObjectId eventId) {
-        this.eventsId.add(eventId);
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -80,8 +62,7 @@ public class Hall extends PersistedObject implements Serializable {
 
         if (!name.equals(hall.name)) return false;
         if (!address.equals(hall.address)) return false;
-        if (URL != null ? !URL.equals(hall.URL) : hall.URL != null) return false;
-        return eventsId != null ? eventsId.equals(hall.eventsId) : hall.eventsId == null;
+        return URL != null ? URL.equals(hall.URL) : hall.URL == null;
 
     }
 
@@ -90,7 +71,6 @@ public class Hall extends PersistedObject implements Serializable {
         int result = name.hashCode();
         result = 31 * result + address.hashCode();
         result = 31 * result + (URL != null ? URL.hashCode() : 0);
-        result = 31 * result + (eventsId != null ? eventsId.hashCode() : 0);
         return result;
     }
 
@@ -100,7 +80,6 @@ public class Hall extends PersistedObject implements Serializable {
                 "name='" + name + '\'' +
                 ", address='" + address + '\'' +
                 ", URL='" + URL + '\'' +
-                ", eventsId=" + eventsId +
                 '}';
     }
 }
