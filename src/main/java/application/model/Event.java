@@ -2,7 +2,6 @@ package application.model;
 
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.index.Indexed;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.validation.constraints.NotNull;
@@ -29,17 +28,16 @@ public class Event extends PersistedObject implements Serializable{
     private String brideName;
 
     @Indexed
-    @DBRef
     @NotNull
-    private Hall hall;
+    private ObjectId hallId;
 
     private List<ObjectId> usersId;
 
-    public Event(Date date, String groomName, String brideName, Hall hall) {
+    public Event(Date date, String groomName, String brideName, ObjectId hallId) {
         this.date = date;
         this.groomName = groomName;
         this.brideName = brideName;
-        this.hall = hall;
+        this.hallId = hallId;
         this.usersId = new ArrayList<ObjectId>();
     }
 
@@ -67,12 +65,12 @@ public class Event extends PersistedObject implements Serializable{
         this.brideName = brideName;
     }
 
-    public Hall getHall() {
-        return hall;
+    public ObjectId getHallId() {
+        return hallId;
     }
 
-    public void setHall(Hall hall) {
-        this.hall = hall;
+    public void setHallId(ObjectId hallId) {
+        this.hallId = hallId;
     }
 
     public List<ObjectId> getUsersId() {
@@ -97,7 +95,7 @@ public class Event extends PersistedObject implements Serializable{
         if (!date.equals(event.date)) return false;
         if (!groomName.equals(event.groomName)) return false;
         if (!brideName.equals(event.brideName)) return false;
-        if (!hall.equals(event.hall)) return false;
+        if (!hallId.equals(event.hallId)) return false;
         return usersId != null ? usersId.equals(event.usersId) : event.usersId == null;
 
     }
@@ -107,7 +105,7 @@ public class Event extends PersistedObject implements Serializable{
         int result = date.hashCode();
         result = 31 * result + groomName.hashCode();
         result = 31 * result + brideName.hashCode();
-        result = 31 * result + hall.hashCode();
+        result = 31 * result + hallId.hashCode();
         result = 31 * result + (usersId != null ? usersId.hashCode() : 0);
         return result;
     }
@@ -118,7 +116,7 @@ public class Event extends PersistedObject implements Serializable{
                 "date=" + date +
                 ", groomName='" + groomName + '\'' +
                 ", brideName='" + brideName + '\'' +
-                ", hall=" + hall +
+                ", hallId=" + hallId +
                 ", usersId=" + usersId +
                 '}';
     }

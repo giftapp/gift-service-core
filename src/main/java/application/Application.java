@@ -32,7 +32,7 @@ public class Application {
             Hall havatRonit = new Hall("Havat Ronit", "adress1",null);
             hallRepository.save(havatRonit);
 
-            Event wedding1 = new Event(new Date(), "Jay", "Clair", havatRonit);
+            Event wedding1 = new Event(new Date(), "Jay", "Clair", havatRonit.getId());
             eventRepository.save(wedding1);
 
             wedding1.addUser(userMatan.getId());
