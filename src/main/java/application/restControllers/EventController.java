@@ -1,7 +1,7 @@
 package application.restControllers;
 
-import application.model.User;
-import application.repositories.user.UserRepository;
+import application.model.Event;
+import application.repositories.event.EventRepository;
 import application.restControllers.exceptions.InvalidObjectIdException;
 import application.restControllers.exceptions.ObjectNotFoundException;
 import org.bson.types.ObjectId;
@@ -17,38 +17,39 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Created by matan on 10/05/2016.
+ * Created by matan on 13/05/2016.
  */
 
 @RestController
-@RequestMapping("/user")
-public class UserController {
+@RequestMapping("/event")
+public class EventController {
 
     private static final Logger log = Logger.getLogger( UserController.class.getName() );
 
     @Autowired
-    @Qualifier("userRepository")
-    private UserRepository userRepository;
+    @Qualifier("eventRepository")
+    private EventRepository eventRepository;
 
     //REST ENDPOINTS
     @RequestMapping(method = RequestMethod.GET)
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
+    public List<Event> getAllEvents() {
+        return eventRepository.findAll();
     }
 
-    @RequestMapping(path = "/{userId}" ,method = RequestMethod.GET)
-    public User getUser(@PathVariable String userId) {
-        return this.validateUser(userId);
+    @RequestMapping(path = "/{eventId}" ,method = RequestMethod.GET)
+    public Event getEvent(@PathVariable String eventId) {
+        return this.validateEvent(eventId);
     }
 
     //Utils
-    private User validateUser(String userId) {
+    private Event validateEvent(String eventId) {
         try {
-            ObjectId id = new ObjectId(userId);
-            return this.userRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException(this.getClass().getName(), userId));
+            ObjectId id = new ObjectId(eventId);
+            return this.eventRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException(this.getClass().getName(), eventId));
         } catch (IllegalArgumentException e) {
-            log.log(Level.WARNING, "Unable to parse ObjectId from: " + userId);
-            throw new InvalidObjectIdException(userId);
+            log.log(Level.WARNING, "Unable to parse ObjectId from: " + eventId);
+            throw new InvalidObjectIdException(eventId);
         }
     }
+
 }
