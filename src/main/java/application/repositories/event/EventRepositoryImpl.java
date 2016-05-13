@@ -2,6 +2,7 @@ package application.repositories.event;
 
 import application.model.Event;
 import application.utils.TimeUtils;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -23,7 +24,11 @@ public class EventRepositoryImpl  implements EventRepositoryCustom {
         Date startTime = TimeUtils.getStartOfDayTime(date);
         Date endTime = TimeUtils.getEndOfDayTime(date);
 
-        return mongoOperations.find(
-                Query.query(Criteria.where("date").gte(startTime).lte(endTime)), Event.class);
+        return mongoOperations.find(Query.query(Criteria.where("date").gte(startTime).lte(endTime)), Event.class);
+    }
+
+    @Override
+    public List<Event> eventsForUser(ObjectId userId) {
+        return mongoOperations.find(Query.query(Criteria.where("usersId").in(userId)), Event.class);
     }
 }

@@ -36,7 +36,6 @@ public class Application {
             eventRepository.save(wedding1);
 
             wedding1.addUser(userMatan.getId());
-            userMatan.addEvent(wedding1.getId());
             havatRonit.addEvent(wedding1.getId());
 
             hallRepository.save(havatRonit);

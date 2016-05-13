@@ -5,14 +5,11 @@ package application.model;
  */
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 @Document
 public class User extends PersistedObject implements Serializable {
@@ -31,14 +28,11 @@ public class User extends PersistedObject implements Serializable {
     @NotNull
     private String password;
 
-    private List<ObjectId> eventsId;
-
     public User(String firstName, String lastName, String email, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
-        this.eventsId = new ArrayList<ObjectId>();
     }
 
     public String getFirstName() {
@@ -73,18 +67,6 @@ public class User extends PersistedObject implements Serializable {
         this.password = password;
     }
 
-    public List<ObjectId> getEventsId() {
-        return eventsId;
-    }
-
-    public void setEventsId(List<ObjectId> eventsId) {
-        this.eventsId = eventsId;
-    }
-
-    public void addEvent(ObjectId eventId) {
-        this.eventsId.add(eventId);
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -95,8 +77,7 @@ public class User extends PersistedObject implements Serializable {
         if (!firstName.equals(user.firstName)) return false;
         if (!lastName.equals(user.lastName)) return false;
         if (!email.equals(user.email)) return false;
-        if (!password.equals(user.password)) return false;
-        return eventsId != null ? eventsId.equals(user.eventsId) : user.eventsId == null;
+        return password.equals(user.password);
 
     }
 
@@ -106,7 +87,6 @@ public class User extends PersistedObject implements Serializable {
         result = 31 * result + lastName.hashCode();
         result = 31 * result + email.hashCode();
         result = 31 * result + password.hashCode();
-        result = 31 * result + (eventsId != null ? eventsId.hashCode() : 0);
         return result;
     }
 
@@ -117,7 +97,6 @@ public class User extends PersistedObject implements Serializable {
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
-                ", eventsId=" + eventsId +
                 '}';
     }
 }
