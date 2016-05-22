@@ -8,6 +8,7 @@ import application.repositories.gift.GiftRepository;
 import application.repositories.user.UserRepository;
 import application.repositories.utils.RepositoryUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,6 +26,7 @@ public class UserController extends AuthorizedControllerBase {
     private static final Logger log = Logger.getLogger( UserController.class.getName() );
 
     @Autowired
+    @Qualifier("userRepository")
     private UserRepository userRepository;
 
     @Autowired

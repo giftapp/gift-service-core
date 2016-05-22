@@ -9,6 +9,7 @@ import application.security.Authenticator;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,6 +37,7 @@ public class RegistrationController {
     private FacebookService facebookService;
 
     @Autowired
+    @Qualifier("userRepository")
     private UserRepository userRepository;
 
     //POST
