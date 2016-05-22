@@ -42,9 +42,9 @@ public class RegistrationController {
 
     //POST
     @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public User registerUser(@Valid @RequestBody RegisterUserResponse registerUserResponse) {
+    public User registerUser(@Valid @RequestBody RegisterUserRequestBody registerUserRequestBody) {
 
-        String userAccessToken = registerUserResponse.getAccessToken();
+        String userAccessToken = registerUserRequestBody.getAccessToken();
 
         if (!authenticator.verifyAuthentication(userAccessToken)) {
             throw new UnauthorizedUserException();
@@ -58,7 +58,7 @@ public class RegistrationController {
         return user;
     }
 
-    private static final class RegisterUserResponse {
+    private static final class RegisterUserRequestBody {
         @NotNull
         private String accessToken;
 
@@ -71,7 +71,7 @@ public class RegistrationController {
         }
 
         @JsonCreator
-        public RegisterUserResponse(@JsonProperty("accessToken") String accessToken) {
+        public RegisterUserRequestBody(@JsonProperty("accessToken") String accessToken) {
             this.accessToken = accessToken;
         }
     }

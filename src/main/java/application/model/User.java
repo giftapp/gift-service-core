@@ -9,10 +9,9 @@ import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.validation.constraints.NotNull;
-import java.io.Serializable;
 
 @Document
-public class User extends PersistedObject implements Serializable {
+public class User extends PersistedObject {
 
     @NotNull
     private String firstName;

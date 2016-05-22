@@ -6,6 +6,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -14,7 +15,7 @@ import java.util.Date;
 
 @Document
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public class PersistedObject {
+public class PersistedObject implements Serializable {
     @Id
     private ObjectId id;
 

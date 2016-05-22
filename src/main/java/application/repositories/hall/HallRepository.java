@@ -11,4 +11,5 @@ import java.util.Optional;
  */
 public interface HallRepository extends MongoRepository<Hall, Long> {
     Optional<Hall> findById(ObjectId objectId);
+    Optional<Hall> findByGooglePlaceId(String googlePlaceId);
 }

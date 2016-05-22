@@ -5,7 +5,6 @@ import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.validation.constraints.NotNull;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -15,7 +14,7 @@ import java.util.List;
  */
 
 @Document
-public class Event extends PersistedObject implements Serializable{
+public class Event extends PersistedObject {
 
     @Indexed
     @NotNull

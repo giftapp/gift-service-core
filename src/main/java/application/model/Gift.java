@@ -4,14 +4,13 @@ import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.validation.constraints.NotNull;
-import java.io.Serializable;
 
 /**
  * Created by matan on 13/05/2016.
  */
 
 @Document
-public class Gift extends PersistedObject implements Serializable {
+public class Gift extends PersistedObject {
 
     @NotNull
     private ObjectId userId;
