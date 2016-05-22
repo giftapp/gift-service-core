@@ -2,16 +2,13 @@ package application.restControllers;
 
 import application.model.Event;
 import application.repositories.event.EventRepository;
-import application.restControllers.exceptions.InvalidObjectIdException;
-import application.restControllers.exceptions.ObjectNotFoundException;
-import org.bson.types.ObjectId;
+import application.repositories.utils.RepositoryUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -27,6 +24,9 @@ public class EventController extends AuthorizedControllerBase {
     @Autowired
     private EventRepository eventRepository;
 
+    @Autowired
+    private RepositoryUtils repositoryUtils;
+
     //REST ENDPOINTS
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Event> getAllEvents(@RequestParam(value="forToday", required=false, defaultValue = "false") Boolean isForToday) {
@@ -39,18 +39,6 @@ public class EventController extends AuthorizedControllerBase {
 
     @RequestMapping(path = "/{eventId}" ,method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public Event getEvent(@PathVariable String eventId) {
-        return this.validateEvent(eventId);
+        return this.repositoryUtils.validateObjectExist(Event.class, eventId);
     }
-
-    //Utils
-    private Event validateEvent(String eventId) {
-        try {
-            ObjectId id = new ObjectId(eventId);
-            return this.eventRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException(this.getClass().getName(), eventId));
-        } catch (IllegalArgumentException e) {
-            log.log(Level.WARNING, "Unable to parse ObjectId from: " + eventId);
-            throw new InvalidObjectIdException(eventId);
-        }
-    }
-
 }

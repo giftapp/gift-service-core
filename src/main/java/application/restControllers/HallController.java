@@ -2,9 +2,7 @@ package application.restControllers;
 
 import application.model.Hall;
 import application.repositories.hall.HallRepository;
-import application.restControllers.exceptions.InvalidObjectIdException;
-import application.restControllers.exceptions.ObjectNotFoundException;
-import org.bson.types.ObjectId;
+import application.repositories.utils.RepositoryUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -28,6 +25,9 @@ public class HallController extends AuthorizedControllerBase {
     @Autowired
     private HallRepository hallRepository;
 
+    @Autowired
+    private RepositoryUtils repositoryUtils;
+
     //REST ENDPOINTS
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Hall> getAllHalls() {
@@ -36,17 +36,6 @@ public class HallController extends AuthorizedControllerBase {
 
     @RequestMapping(path = "/{hallId}" ,method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public Hall getHall(@PathVariable String hallId) {
-        return this.validateHall(hallId);
-    }
-
-    //Utils
-    private Hall validateHall(String hallId) {
-        try {
-            ObjectId id = new ObjectId(hallId);
-            return this.hallRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException(this.getClass().getName(), hallId));
-        } catch (IllegalArgumentException e) {
-            log.log(Level.WARNING, "Unable to parse ObjectId from: " + hallId);
-            throw new InvalidObjectIdException(hallId);
-        }
+        return this.repositoryUtils.validateObjectExist(Hall.class, hallId);
     }
 }

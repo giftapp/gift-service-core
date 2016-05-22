@@ -6,15 +6,12 @@ import application.model.User;
 import application.repositories.event.EventRepository;
 import application.repositories.gift.GiftRepository;
 import application.repositories.user.UserRepository;
-import application.restControllers.exceptions.InvalidObjectIdException;
-import application.restControllers.exceptions.ObjectNotFoundException;
-import org.bson.types.ObjectId;
+import application.repositories.utils.RepositoryUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -36,6 +33,9 @@ public class UserController extends AuthorizedControllerBase {
     @Autowired
     private GiftRepository giftRepository;
 
+    @Autowired
+    private RepositoryUtils repositoryUtils;
+
     //REST ENDPOINTS
 
     //GET
@@ -46,29 +46,18 @@ public class UserController extends AuthorizedControllerBase {
 
     @RequestMapping(path = "/{userId}" ,method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public User getUser(@PathVariable String userId) {
-        return this.validateUser(userId);
+        return this.repositoryUtils.validateObjectExist(User.class, userId);
     }
 
     @RequestMapping(path = "/{userId}/event" ,method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Event> getUserEvents(@PathVariable String userId) {
-        User user = this.validateUser(userId);
+        User user = repositoryUtils.validateObjectExist(User.class, userId);
         return eventRepository.eventsForUser(user.getId());
     }
 
     @RequestMapping(path = "/{userId}/gift" ,method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Gift> getUserGifts(@ModelAttribute("currentUser") User currentUser, @PathVariable String userId) {
-        User user = this.validateUser(userId);
+        User user = repositoryUtils.validateObjectExist(User.class, userId);
         return giftRepository.giftsForUser(user.getId());
-    }
-
-    //Utils
-    private User validateUser(String userId) {
-        try {
-            ObjectId id = new ObjectId(userId);
-            return this.userRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException(this.getClass().getName(), userId));
-        } catch (IllegalArgumentException e) {
-            log.log(Level.WARNING, "Unable to parse ObjectId from: " + userId);
-            throw new InvalidObjectIdException(userId);
-        }
     }
 }
