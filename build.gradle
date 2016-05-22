@@ -38,6 +38,9 @@ dependencies {
     compile("io.springfox:springfox-swagger2:2.4.0")
     compile("io.springfox:springfox-swagger-ui:2.4.0")
 
+    //Facebook
+    compile("com.restfb:restfb:1.23.0")
+
 //    compile("org.springframework.security.oauth:spring-security-oauth2:2.0.9.RELEASE")
 }
 

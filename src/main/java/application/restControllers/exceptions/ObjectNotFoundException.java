@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ResponseStatus(HttpStatus.NOT_FOUND)
 public class ObjectNotFoundException extends RuntimeException {
 
-    public ObjectNotFoundException(String className, String id) {
-        super("could not find object of class: '" + className + "' with id: '" + id + "'.");
+    public ObjectNotFoundException(String className, String key) {
+        super("could not find object of class: '" + className + "' with key: '" + key + "'.");
     }
 
 }

@@ -28,6 +28,9 @@ public class User extends PersistedObject implements Serializable {
     @NotNull
     private String password;
 
+    @JsonIgnore
+    private String accessToken;
+
     public User(String firstName, String lastName, String email, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -65,6 +68,14 @@ public class User extends PersistedObject implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getAccessToken() {
+        return accessToken;
+    }
+
+    public void setAccessToken(String accessToken) {
+        this.accessToken = accessToken;
     }
 
     @Override

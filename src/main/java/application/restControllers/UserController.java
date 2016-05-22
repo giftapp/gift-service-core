@@ -11,10 +11,7 @@ import application.restControllers.exceptions.ObjectNotFoundException;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.logging.Level;
@@ -26,7 +23,7 @@ import java.util.logging.Logger;
 
 @RestController
 @RequestMapping("/user")
-public class UserController {
+public class UserController extends AuthorizedControllerBase {
 
     private static final Logger log = Logger.getLogger( UserController.class.getName() );
 
@@ -59,7 +56,7 @@ public class UserController {
     }
 
     @RequestMapping(path = "/{userId}/gift" ,method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Gift> getUserGifts(@PathVariable String userId) {
+    public List<Gift> getUserGifts(@ModelAttribute("currentUser") User currentUser, @PathVariable String userId) {
         User user = this.validateUser(userId);
         return giftRepository.giftsForUser(user.getId());
     }

@@ -95,5 +95,6 @@
     <orderEntry type="library" name="Gradle: org.springframework.plugin:spring-plugin-metadata:1.2.0.RELEASE" level="project" />
     <orderEntry type="library" name="Gradle: io.springfox:springfox-core:2.4.0" level="project" />
     <orderEntry type="library" name="Gradle: io.springfox:springfox-swagger-ui:2.4.0" level="project" />
+    <orderEntry type="library" name="Gradle: com.restfb:restfb:1.23.0" level="project" />
   </component>
 </module>
