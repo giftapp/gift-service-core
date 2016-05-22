@@ -49,4 +49,20 @@ public class PersistedObject {
     }
 
     public PersistedObject() {}
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof PersistedObject)) return false;
+
+        PersistedObject that = (PersistedObject) o;
+
+        return id.equals(that.id);
+
+    }
+
+    @Override
+    public int hashCode() {
+        return id.hashCode();
+    }
 }

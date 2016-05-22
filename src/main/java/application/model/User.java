@@ -24,18 +24,17 @@ public class User extends PersistedObject implements Serializable {
     @NotNull
     private String email;
 
-    @JsonIgnore
-    @NotNull
-    private String password;
+    private String avatarURL;
 
     @JsonIgnore
     private String accessToken;
 
-    public User(String firstName, String lastName, String email, String password) {
+    public User(String firstName, String lastName, String email, String avatarURL, String accessToken) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.password = password;
+        this.avatarURL = avatarURL;
+        this.accessToken = accessToken;
     }
 
     public String getFirstName() {
@@ -62,12 +61,12 @@ public class User extends PersistedObject implements Serializable {
         this.email = email;
     }
 
-    public String getPassword() {
-        return password;
+    public String getAvatarURL() {
+        return avatarURL;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setAvatarURL(String avatarURL) {
+        this.avatarURL = avatarURL;
     }
 
     public String getAccessToken() {
@@ -76,38 +75,5 @@ public class User extends PersistedObject implements Serializable {
 
     public void setAccessToken(String accessToken) {
         this.accessToken = accessToken;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof User)) return false;
-
-        User user = (User) o;
-
-        if (!firstName.equals(user.firstName)) return false;
-        if (!lastName.equals(user.lastName)) return false;
-        if (!email.equals(user.email)) return false;
-        return password.equals(user.password);
-
-    }
-
-    @Override
-    public int hashCode() {
-        int result = firstName.hashCode();
-        result = 31 * result + lastName.hashCode();
-        result = 31 * result + email.hashCode();
-        result = 31 * result + password.hashCode();
-        return result;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                '}';
     }
 }
