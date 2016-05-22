@@ -60,37 +60,4 @@ public class Gift extends PersistedObject implements Serializable {
     public void setToast(Toast toast) {
         this.toast = toast;
     }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Gift)) return false;
-
-        Gift gift = (Gift) o;
-
-        if (!userId.equals(gift.userId)) return false;
-        if (!eventId.equals(gift.eventId)) return false;
-        if (!payment.equals(gift.payment)) return false;
-        return toast != null ? toast.equals(gift.toast) : gift.toast == null;
-
-    }
-
-    @Override
-    public int hashCode() {
-        int result = userId.hashCode();
-        result = 31 * result + eventId.hashCode();
-        result = 31 * result + payment.hashCode();
-        result = 31 * result + (toast != null ? toast.hashCode() : 0);
-        return result;
-    }
-
-    @Override
-    public String toString() {
-        return "Gift{" +
-                "userId=" + userId +
-                ", eventId=" + eventId +
-                ", payment=" + payment +
-                ", toast=" + toast +
-                '}';
-    }
 }

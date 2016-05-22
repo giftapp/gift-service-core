@@ -84,40 +84,4 @@ public class Event extends PersistedObject implements Serializable{
     public void addUser(ObjectId userId) {
         this.usersId.add(userId);
     }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Event)) return false;
-
-        Event event = (Event) o;
-
-        if (!date.equals(event.date)) return false;
-        if (!groomName.equals(event.groomName)) return false;
-        if (!brideName.equals(event.brideName)) return false;
-        if (!hallId.equals(event.hallId)) return false;
-        return usersId != null ? usersId.equals(event.usersId) : event.usersId == null;
-
-    }
-
-    @Override
-    public int hashCode() {
-        int result = date.hashCode();
-        result = 31 * result + groomName.hashCode();
-        result = 31 * result + brideName.hashCode();
-        result = 31 * result + hallId.hashCode();
-        result = 31 * result + (usersId != null ? usersId.hashCode() : 0);
-        return result;
-    }
-
-    @Override
-    public String toString() {
-        return "Event{" +
-                "date=" + date +
-                ", groomName='" + groomName + '\'' +
-                ", brideName='" + brideName + '\'' +
-                ", hallId=" + hallId +
-                ", usersId=" + usersId +
-                '}';
-    }
 }

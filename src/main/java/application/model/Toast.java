@@ -46,34 +46,4 @@ public class Toast {
     public void setText(String text) {
         this.text = text;
     }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Toast)) return false;
-
-        Toast toast = (Toast) o;
-
-        if (!userId.equals(toast.userId)) return false;
-        if (!eventId.equals(toast.eventId)) return false;
-        return text != null ? text.equals(toast.text) : toast.text == null;
-
-    }
-
-    @Override
-    public int hashCode() {
-        int result = userId.hashCode();
-        result = 31 * result + eventId.hashCode();
-        result = 31 * result + (text != null ? text.hashCode() : 0);
-        return result;
-    }
-
-    @Override
-    public String toString() {
-        return "Toast{" +
-                "userId=" + userId +
-                ", eventId=" + eventId +
-                ", text='" + text + '\'' +
-                '}';
-    }
 }

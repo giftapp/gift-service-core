@@ -52,34 +52,4 @@ public class Hall extends PersistedObject implements Serializable {
     public void setURL(String URL) {
         this.URL = URL;
     }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Hall)) return false;
-
-        Hall hall = (Hall) o;
-
-        if (!name.equals(hall.name)) return false;
-        if (!address.equals(hall.address)) return false;
-        return URL != null ? URL.equals(hall.URL) : hall.URL == null;
-
-    }
-
-    @Override
-    public int hashCode() {
-        int result = name.hashCode();
-        result = 31 * result + address.hashCode();
-        result = 31 * result + (URL != null ? URL.hashCode() : 0);
-        return result;
-    }
-
-    @Override
-    public String toString() {
-        return "Hall{" +
-                "name='" + name + '\'' +
-                ", address='" + address + '\'' +
-                ", URL='" + URL + '\'' +
-                '}';
-    }
 }
