@@ -2,6 +2,7 @@ package application.restControllers;
 
 import application.facebook.FacebookService;
 import application.model.User;
+import application.outbound.email.EmailService;
 import application.repositories.user.UserRepository;
 import application.restControllers.exceptions.ObjectAlreadyExistEcxeption;
 import application.restControllers.exceptions.UnauthorizedUserException;
@@ -40,6 +41,9 @@ public class RegistrationController {
     @Qualifier("userRepository")
     private UserRepository userRepository;
 
+    @Autowired
+    private EmailService emailService;
+
     //POST
     @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public User registerUser(@Valid @RequestBody RegisterUserRequestBody registerUserRequestBody) {
@@ -54,7 +58,16 @@ public class RegistrationController {
         }
 
         User user = facebookService.getUserFromToken(userAccessToken);
+        if (userRepository.findByEmail(user.getEmail()).isPresent()) {
+            throw new ObjectAlreadyExistEcxeption(User.class.getName(), user.getEmail());
+        }
+
+        //Store user
         userRepository.save(user);
+
+        //Send Welcome email
+        emailService.sendWelcomeMessage(user.getEmail());
+
         return user;
     }
 
