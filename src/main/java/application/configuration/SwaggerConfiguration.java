@@ -2,6 +2,7 @@ package application.configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
@@ -27,14 +28,8 @@ public class SwaggerConfiguration {
     }
 
     private ApiInfo apiInfo() {
-        ApiInfo apiInfo = new ApiInfo(
-                "Gift REST API",
-                "Full API for the Gift service",
-                "V1",
-                "Terms of service",
-                "mlachmish@gmail.com",
-                "License of API",
-                "API license URL");
-        return apiInfo;
+        return new ApiInfoBuilder().title("Gift REST API").description("Backend APIs for Gift App")
+                .termsOfServiceUrl("http://google.com").license("Apache License Version 2.0")
+                .licenseUrl("https://github.com/springfox/springfox/blob/master/LICENSE").version("1.0").build();
     }
 }

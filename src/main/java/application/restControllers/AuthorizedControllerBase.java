@@ -26,7 +26,7 @@ public class AuthorizedControllerBase {
     private UserRepository userRepository;
 
     @ModelAttribute("currentUser")
-    public User authenticateUser(@RequestHeader(value="Authorization") String accessToken) {
+    public User authenticateUser(@RequestHeader(value="api_key") String accessToken) {
         if (!authenticator.verifyAuthentication(accessToken)) {
             throw new UnauthorizedUserException();
         }
