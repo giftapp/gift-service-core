@@ -58,7 +58,7 @@ public class AuthorizationController {
     }
 
     //POST
-    @RequestMapping(path = "/verifyPhoneNumber", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(path = "/phoneNumberChallenge", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public void verifyPhoneNumber(@Valid @RequestBody VerifyPhoneNumberRequestBody verifyPhoneNumberRequestBody) {
 
         //create a challenge in db
