@@ -9,5 +9,6 @@ public interface FacebookService {
 
     boolean validateUserAccessToken(String userAccessToken);
 
-    User getUserFromToken(String userAccessToken);
+    User updateUserFromToken(User user, String userFacebookAccessToken);
+
 }

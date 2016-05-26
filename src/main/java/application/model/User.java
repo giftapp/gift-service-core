@@ -23,17 +23,28 @@ public class User extends PersistedObject {
     @NotNull
     private String email;
 
+    @Indexed(unique = true)
+    @NotNull
+    private String phoneNumber;
+
     private String avatarURL;
 
     @JsonIgnore
-    private String accessToken;
+    private String facebookAccessToken;
 
-    public User(String firstName, String lastName, String email, String avatarURL, String accessToken) {
+    public User() {
+    }
+
+    public User(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public User(String firstName, String lastName, String email, String phoneNumber, String avatarURL) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
+        this.phoneNumber = phoneNumber;
         this.avatarURL = avatarURL;
-        this.accessToken = accessToken;
     }
 
     public String getFirstName() {
@@ -41,6 +52,7 @@ public class User extends PersistedObject {
     }
 
     public void setFirstName(String firstName) {
+        if (firstName == null) return;
         this.firstName = firstName;
     }
 
@@ -49,6 +61,7 @@ public class User extends PersistedObject {
     }
 
     public void setLastName(String lastName) {
+        if (lastName == null) return;
         this.lastName = lastName;
     }
 
@@ -57,7 +70,17 @@ public class User extends PersistedObject {
     }
 
     public void setEmail(String email) {
+        if (email == null) return;
         this.email = email;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        if (phoneNumber == null) return;
+        this.phoneNumber = phoneNumber;
     }
 
     public String getAvatarURL() {
@@ -65,14 +88,16 @@ public class User extends PersistedObject {
     }
 
     public void setAvatarURL(String avatarURL) {
+        if (avatarURL == null) return;
         this.avatarURL = avatarURL;
     }
 
-    public String getAccessToken() {
-        return accessToken;
+    public String getFacebookAccessToken() {
+        return facebookAccessToken;
     }
 
-    public void setAccessToken(String accessToken) {
-        this.accessToken = accessToken;
+    public void setFacebookAccessToken(String facebookAccessToken) {
+        if (facebookAccessToken == null) return;
+        this.facebookAccessToken = facebookAccessToken;
     }
 }

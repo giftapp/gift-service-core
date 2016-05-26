@@ -8,6 +8,7 @@ import com.restfb.Version;
 import com.restfb.exception.FacebookException;
 import org.springframework.stereotype.Component;
 
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -42,12 +43,18 @@ public class FacebookServiceImpl implements FacebookService {
     }
 
     @Override
-    public User getUserFromToken(String userAccessToken) {
+    public User updateUserFromToken(User user, String userFacebookAccessToken) {
         try {
-            DefaultFacebookClient userFacebookClient = new DefaultFacebookClient(userAccessToken, Version.VERSION_2_6);
+            DefaultFacebookClient userFacebookClient = new DefaultFacebookClient(userFacebookAccessToken, Version.VERSION_2_6);
             com.restfb.types.User fbUser = userFacebookClient.fetchObject("me", com.restfb.types.User.class, Parameter.with("fields", "id,first_name,last_name,email,picture"));
-            return new User(fbUser.getFirstName(), fbUser.getLastName(), fbUser.getEmail(), fbUser.getPicture().getUrl(), userAccessToken);
+            user.setFirstName(fbUser.getFirstName());
+            user.setLastName(fbUser.getLastName());
+            user.setEmail(fbUser.getEmail());
+            user.setAvatarURL(fbUser.getPicture().getUrl());
+            user.setFacebookAccessToken(userFacebookAccessToken);
+            return user;
         } catch (FacebookException e) {
+            log.log(Level.SEVERE, "Failed updating user from facebook API" + e);
             return null;
         }
     }

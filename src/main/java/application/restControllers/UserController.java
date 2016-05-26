@@ -1,17 +1,22 @@
 package application.restControllers;
 
+import application.facebook.FacebookService;
 import application.model.Event;
 import application.model.Gift;
 import application.model.User;
+import application.outbound.email.EmailService;
 import application.repositories.event.EventRepository;
 import application.repositories.gift.GiftRepository;
 import application.repositories.user.UserRepository;
 import application.repositories.utils.RepositoryUtils;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -38,6 +43,12 @@ public class UserController extends AuthorizedControllerBase {
     @Autowired
     private RepositoryUtils repositoryUtils;
 
+    @Autowired
+    private EmailService emailService;
+
+    @Autowired
+    private FacebookService facebookService;
+
     //REST ENDPOINTS
 
     //GET
@@ -61,5 +72,51 @@ public class UserController extends AuthorizedControllerBase {
     public List<Gift> getUserGifts(@ModelAttribute("currentUser") User currentUser, @PathVariable String userId) {
         User user = repositoryUtils.validateObjectExist(User.class, userId);
         return giftRepository.giftsForUser(user.getId());
+    }
+
+    //PUT
+    @RequestMapping(method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
+    public User updateUser(@ModelAttribute("currentUser") User currentUser, @Valid @RequestBody UpdateUserRequestBody updateUserRequestBody) {
+        if (updateUserRequestBody.email != null && currentUser.getEmail() != updateUserRequestBody.email) {
+            //Send Welcome email
+            emailService.sendWelcomeMessage(updateUserRequestBody.email);
+        }
+
+        if (updateUserRequestBody.facebookAccessToken != null && currentUser.getFacebookAccessToken() != updateUserRequestBody.facebookAccessToken) {
+            currentUser = facebookService.updateUserFromToken(currentUser,updateUserRequestBody.facebookAccessToken);
+        } else {
+            currentUser.setFirstName(updateUserRequestBody.firstName);
+            currentUser.setLastName(updateUserRequestBody.lastName);
+            currentUser.setEmail(updateUserRequestBody.email);
+            currentUser.setPhoneNumber(updateUserRequestBody.phoneNumber);
+            currentUser.setAvatarURL(updateUserRequestBody.avatarURL);
+            currentUser.setFacebookAccessToken(updateUserRequestBody.facebookAccessToken);
+        }
+
+        return userRepository.save(currentUser);
+    }
+
+    private static final class UpdateUserRequestBody {
+        private String firstName;
+        private String lastName;
+        private String email;
+        private String phoneNumber;
+        private String avatarURL;
+        private String facebookAccessToken;
+
+        @JsonCreator
+        public UpdateUserRequestBody(@JsonProperty("firstName")String firstName,
+                                     @JsonProperty("lastName")String lastName,
+                                     @JsonProperty("email")String email,
+                                     @JsonProperty("phoneNumber")String phoneNumber,
+                                     @JsonProperty("avatarURL")String avatarURL,
+                                     @JsonProperty("facebookAccessToken")String facebookAccessToken) {
+            this.firstName = firstName;
+            this.lastName = lastName;
+            this.email = email;
+            this.phoneNumber = phoneNumber;
+            this.avatarURL = avatarURL;
+            this.facebookAccessToken = facebookAccessToken;
+        }
     }
 }

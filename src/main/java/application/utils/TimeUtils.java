@@ -7,6 +7,7 @@ import java.util.Date;
  * Created by matan on 13/05/2016.
  */
 public class TimeUtils {
+    static final long HOUR = 60 * 60 * 1000;
 
     public static Date getStartOfDayTime(Date date) {
         Calendar calendar = Calendar.getInstance();
@@ -26,5 +27,9 @@ public class TimeUtils {
         calendar.set(Calendar.SECOND, 59);
         calendar.set(Calendar.MILLISECOND, 999);
         return calendar.getTime();
+    }
+
+    public static boolean inLastHour(Date aDate) {
+        return aDate.getTime() > System.currentTimeMillis() - HOUR;
     }
 }
