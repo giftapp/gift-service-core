@@ -13,14 +13,10 @@ import javax.validation.constraints.NotNull;
 @Document
 public class User extends PersistedObject {
 
-    @NotNull
     private String firstName;
 
-    @NotNull
     private String lastName;
 
-    @Indexed(unique = true)
-    @NotNull
     private String email;
 
     @Indexed(unique = true)
