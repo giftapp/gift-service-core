@@ -31,6 +31,8 @@ public class UserController extends AuthorizedControllerBase {
 
     private static final Logger log = Logger.getLogger( UserController.class.getName() );
 
+    private static final String PATH_SHORTCUT_ME = "me";
+
     @Autowired
     @Qualifier("userRepository")
     private UserRepository userRepository;
@@ -59,7 +61,10 @@ public class UserController extends AuthorizedControllerBase {
     }
 
     @RequestMapping(path = "/{userId}" ,method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public User getUser(@PathVariable String userId) {
+    public User getUser(@ModelAttribute("currentUser") User currentUser, @PathVariable String userId) {
+        if (userId.equals(PATH_SHORTCUT_ME)) {
+            return currentUser;
+        }
         return this.repositoryUtils.validateObjectExist(User.class, userId);
     }
 
