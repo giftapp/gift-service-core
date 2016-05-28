@@ -17,6 +17,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -77,21 +78,16 @@ public class UserController extends AuthorizedControllerBase {
     //PUT
     @RequestMapping(method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
     public User updateUser(@ModelAttribute("currentUser") User currentUser, @Valid @RequestBody UpdateUserRequestBody updateUserRequestBody) {
-        if (updateUserRequestBody.email != null && currentUser.getEmail() != updateUserRequestBody.email) {
+        if (updateUserRequestBody.email != null && !currentUser.getEmail().equals(updateUserRequestBody.email)) {
             //Send Welcome email
             emailService.sendWelcomeMessage(updateUserRequestBody.email);
         }
 
-        if (updateUserRequestBody.facebookAccessToken != null && currentUser.getFacebookAccessToken() != updateUserRequestBody.facebookAccessToken) {
-            currentUser = facebookService.updateUserFromToken(currentUser,updateUserRequestBody.facebookAccessToken);
-        } else {
-            currentUser.setFirstName(updateUserRequestBody.firstName);
-            currentUser.setLastName(updateUserRequestBody.lastName);
-            currentUser.setEmail(updateUserRequestBody.email);
-            currentUser.setPhoneNumber(updateUserRequestBody.phoneNumber);
-            currentUser.setAvatarURL(updateUserRequestBody.avatarURL);
-            currentUser.setFacebookAccessToken(updateUserRequestBody.facebookAccessToken);
-        }
+        currentUser.setFirstName(updateUserRequestBody.firstName);
+        currentUser.setLastName(updateUserRequestBody.lastName);
+        currentUser.setEmail(updateUserRequestBody.email);
+        currentUser.setPhoneNumber(updateUserRequestBody.phoneNumber);
+        currentUser.setAvatarURL(updateUserRequestBody.avatarURL);
 
         return userRepository.save(currentUser);
     }
@@ -102,20 +98,41 @@ public class UserController extends AuthorizedControllerBase {
         private String email;
         private String phoneNumber;
         private String avatarURL;
-        private String facebookAccessToken;
 
         @JsonCreator
         public UpdateUserRequestBody(@JsonProperty("firstName")String firstName,
                                      @JsonProperty("lastName")String lastName,
                                      @JsonProperty("email")String email,
                                      @JsonProperty("phoneNumber")String phoneNumber,
-                                     @JsonProperty("avatarURL")String avatarURL,
-                                     @JsonProperty("facebookAccessToken")String facebookAccessToken) {
+                                     @JsonProperty("avatarURL")String avatarURL) {
             this.firstName = firstName;
             this.lastName = lastName;
             this.email = email;
             this.phoneNumber = phoneNumber;
             this.avatarURL = avatarURL;
+        }
+    }
+
+    //PUT
+    @RequestMapping(path = "facebook",method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public User setFacebookAccount(@ModelAttribute("currentUser") User currentUser, @Valid @RequestBody SetFaceBookAccountRequestBody setFaceBookAccountRequestBody) {
+        String originalEmail = currentUser.getEmail();
+        currentUser = facebookService.updateUserFromToken(currentUser,setFaceBookAccountRequestBody.facebookAccessToken);
+
+        if (currentUser.getEmail() != null && !currentUser.getEmail().equals(originalEmail)) {
+            //Send Welcome email
+            emailService.sendWelcomeMessage(currentUser.getEmail());
+        }
+
+        return userRepository.save(currentUser);
+    }
+
+    private static final class SetFaceBookAccountRequestBody {
+        @NotNull
+        private String facebookAccessToken;
+
+        @JsonCreator
+        public SetFaceBookAccountRequestBody(@JsonProperty("facebookAccessToken")String facebookAccessToken) {
             this.facebookAccessToken = facebookAccessToken;
         }
     }
