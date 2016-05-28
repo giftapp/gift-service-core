@@ -3,6 +3,7 @@ package application.restControllers;
 import application.model.PhoneNumberChallenge;
 import application.model.Token;
 import application.model.User;
+import application.outbound.sms.SMSService;
 import application.repositories.token.TokenRepository;
 import application.repositories.user.UserRepository;
 import application.restControllers.exceptions.UnauthorizedUserException;
@@ -31,6 +32,9 @@ public class AuthorizationController {
 
     @Autowired
     private Authenticator authenticator;
+
+    @Autowired
+    private SMSService smsService;
 
     @Autowired
     @Qualifier("userRepository")
@@ -64,8 +68,8 @@ public class AuthorizationController {
         //create a challenge in db
         PhoneNumberChallenge phoneNumberChallenge = authenticator.generatePhoneNumberChallenge(verifyPhoneNumberRequestBody.getPhoneNumber());
 
-        //TODO: send sms
         log.log(Level.INFO, "Sending SMS with verification code: " + phoneNumberChallenge.getVerificationCode());
+        smsService.sendVerificationSMS(phoneNumberChallenge.getPhoneNumber(), phoneNumberChallenge.getVerificationCode());
     }
 
     private static final class VerifyPhoneNumberRequestBody {
