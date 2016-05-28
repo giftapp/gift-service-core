@@ -28,11 +28,14 @@ public class User extends PersistedObject {
     @JsonIgnore
     private String facebookAccessToken;
 
+    private Boolean needsEdit;
+
     public User() {
     }
 
     public User(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+        this.needsEdit = true;
     }
 
     public User(String firstName, String lastName, String email, String phoneNumber, String avatarURL) {
@@ -95,5 +98,13 @@ public class User extends PersistedObject {
     public void setFacebookAccessToken(String facebookAccessToken) {
         if (facebookAccessToken == null) return;
         this.facebookAccessToken = facebookAccessToken;
+    }
+
+    public Boolean getNeedsEdit() {
+        return needsEdit;
+    }
+
+    public void setNeedsEdit(Boolean needsEdit) {
+        this.needsEdit = needsEdit;
     }
 }

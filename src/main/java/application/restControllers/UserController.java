@@ -94,6 +94,7 @@ public class UserController extends AuthorizedControllerBase {
         currentUser.setPhoneNumber(updateUserRequestBody.phoneNumber);
         currentUser.setAvatarURL(updateUserRequestBody.avatarURL);
 
+        currentUser.setNeedsEdit(false);
         return userRepository.save(currentUser);
     }
 
@@ -118,11 +119,12 @@ public class UserController extends AuthorizedControllerBase {
         }
     }
 
-    //PUT
-    @RequestMapping(path = "facebook",method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    //POST
+    @RequestMapping(path = "/facebook",method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public User setFacebookAccount(@ModelAttribute("currentUser") User currentUser, @Valid @RequestBody SetFaceBookAccountRequestBody setFaceBookAccountRequestBody) {
         String originalEmail = currentUser.getEmail();
         currentUser = facebookService.updateUserFromToken(currentUser,setFaceBookAccountRequestBody.facebookAccessToken);
+        currentUser.setNeedsEdit(false);
 
         if (currentUser.getEmail() != null && !currentUser.getEmail().equals(originalEmail)) {
             //Send Welcome email
