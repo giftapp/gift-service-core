@@ -1,5 +1,6 @@
 package application.outbound.sms;
 
+import application.configuration.PropertiesConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +20,15 @@ public class SMSService {
     @Autowired
     private TwilioClient twilioClient;
 
+    @Autowired
+    PropertiesConfiguration propertiesConfiguration;
+
     public void sendVerificationSMS(String toNumber, int verificationCode) {
+        if (propertiesConfiguration.getSmsDisabled()) {
+            log.log(Level.INFO, "Skipping SMS sending , SMS service is disabled");
+            return;
+        }
+
         String text = "Welcome to Gift App, your verification code is: " + verificationCode;
 
         twilioClient.sendSMS(toNumber,text);
