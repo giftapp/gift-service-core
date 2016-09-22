@@ -83,10 +83,7 @@ public class UserController extends AuthorizedControllerBase {
     //PUT
     @RequestMapping(method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
     public User updateUser(@ModelAttribute("currentUser") User currentUser, @Valid @RequestBody UpdateUserRequestBody updateUserRequestBody) {
-        if (updateUserRequestBody.email != null && !currentUser.getEmail().equals(updateUserRequestBody.email)) {
-            //Send Welcome email
-            emailService.sendWelcomeMessage(updateUserRequestBody.email);
-        }
+        sendWelcomeEmailIfNeeded(updateUserRequestBody.email, currentUser.getEmail());
 
         currentUser.setFirstName(updateUserRequestBody.firstName);
         currentUser.setLastName(updateUserRequestBody.lastName);
@@ -120,16 +117,13 @@ public class UserController extends AuthorizedControllerBase {
     }
 
     //POST
-    @RequestMapping(path = "/facebook",method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(path = "/facebook", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public User setFacebookAccount(@ModelAttribute("currentUser") User currentUser, @Valid @RequestBody SetFaceBookAccountRequestBody setFaceBookAccountRequestBody) {
         String originalEmail = currentUser.getEmail();
         currentUser = facebookService.updateUserFromToken(currentUser,setFaceBookAccountRequestBody.facebookAccessToken);
         currentUser.setNeedsEdit(false);
 
-        if (currentUser.getEmail() != null && !currentUser.getEmail().equals(originalEmail)) {
-            //Send Welcome email
-            emailService.sendWelcomeMessage(currentUser.getEmail());
-        }
+        sendWelcomeEmailIfNeeded(currentUser.getEmail(), originalEmail);
 
         return userRepository.save(currentUser);
     }
@@ -141,6 +135,14 @@ public class UserController extends AuthorizedControllerBase {
         @JsonCreator
         public SetFaceBookAccountRequestBody(@JsonProperty("facebookAccessToken")String facebookAccessToken) {
             this.facebookAccessToken = facebookAccessToken;
+        }
+    }
+
+    //Private
+    private void sendWelcomeEmailIfNeeded(String newEmail, String oldEmail) {
+        if (newEmail != null && (oldEmail == null || !oldEmail.equals(newEmail))) {
+            //Send Welcome email
+            emailService.sendWelcomeMessage(newEmail);
         }
     }
 }
