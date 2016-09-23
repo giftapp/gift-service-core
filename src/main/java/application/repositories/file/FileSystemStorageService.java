@@ -17,10 +17,13 @@ import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.logging.Logger;
 import java.util.stream.Stream;
 
 @Service
 public class FileSystemStorageService implements StorageService {
+
+    private static final Logger log = Logger.getLogger( FileSystemStorageService.class.getName() );
 
     private final Path rootLocation;
 
@@ -85,10 +88,12 @@ public class FileSystemStorageService implements StorageService {
 
     @Override
     public void init() {
-        try {
-            Files.createDirectory(rootLocation);
-        } catch (IOException e) {
-            throw new StorageException("Could not initialize storage", e);
+        if (!Files.exists(rootLocation)) {
+            try {
+                Files.createDirectory(rootLocation);
+            } catch (IOException e) {
+                throw new StorageException("Could not initialize storage", e);
+            }
         }
     }
 }
