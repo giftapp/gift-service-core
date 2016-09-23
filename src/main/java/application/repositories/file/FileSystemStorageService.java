@@ -17,6 +17,7 @@ import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.UUID;
 import java.util.logging.Logger;
 import java.util.stream.Stream;
 
@@ -39,12 +40,16 @@ public class FileSystemStorageService implements StorageService {
             if (file.isEmpty()) {
                 throw new StorageException("Failed to store empty file " + file.getOriginalFilename());
             }
-            Path path = this.rootLocation.resolve(file.getOriginalFilename());
+            Path path = this.rootLocation.resolve(getUniqueFileName());
             Files.copy(file.getInputStream(), path);
             return path.toString();
         } catch (IOException e) {
             throw new StorageException("Failed to store file " + file.getOriginalFilename(), e);
         }
+    }
+
+    private String getUniqueFileName() {
+        return UUID.randomUUID().toString() + ".jpg";
     }
 
     @Override
