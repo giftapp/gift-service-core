@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
 import java.util.logging.Logger;
 
 /**
@@ -40,6 +41,18 @@ public class Authenticator {
     }
 
     public PhoneNumberChallenge generatePhoneNumberChallenge(String phoneNumber) {
+        //Check if a challenge already exist
+        Optional<PhoneNumberChallenge> existingPhoneNumberChallenge = phoneNumberChallengeRepository.findByPhoneNumber(phoneNumber);
+        if (existingPhoneNumberChallenge.isPresent()) {
+            if (TimeUtils.inLastHour(existingPhoneNumberChallenge.get().getCreatedAt())) {
+                //Valid challenge already exist! use it.
+                return existingPhoneNumberChallenge.get();
+            } else {
+                //Challenge is too old
+                phoneNumberChallengeRepository.delete(existingPhoneNumberChallenge.get());
+            }
+        }
+
         PhoneNumberChallenge phoneNumberChallenge = new PhoneNumberChallenge(phoneNumber);
         phoneNumberChallengeRepository.save(phoneNumberChallenge);
         return phoneNumberChallenge;
