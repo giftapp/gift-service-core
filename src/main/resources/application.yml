@@ -2,4 +2,11 @@ server:
   contextPath: /api
   port: 8080
 
+multipart:
+  max-file-size: 2Mb
+  max-request-size: 2Mb
+
+storage:
+  location: /Users/matan/Downloads/gift/files
+
 #logging.level.org.springframework.web: DEBUG

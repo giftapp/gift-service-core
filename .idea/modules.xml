@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/gift-service-core.iml" filepath="$PROJECT_DIR$/gift-service-core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/gift-service-core.iml" filepath="$PROJECT_DIR$/.idea/modules/gift-service-core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/gift-service-core_main.iml" filepath="$PROJECT_DIR$/.idea/modules/gift-service-core_main.iml" group="gift-service-core" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/gift-service-core_test.iml" filepath="$PROJECT_DIR$/.idea/modules/gift-service-core_test.iml" group="gift-service-core" />
     </modules>
   </component>
 </project>
