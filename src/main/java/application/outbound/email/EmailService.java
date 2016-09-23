@@ -1,5 +1,6 @@
 package application.outbound.email;
 
+import application.outbound.OutboundProperties;
 import com.sun.jersey.api.client.ClientResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,9 +18,16 @@ public class EmailService {
     private static final Logger log = Logger.getLogger( EmailService.class.getName() );
 
     @Autowired
+    OutboundProperties outboundProperties;
+
+    @Autowired
     private MailGunClient mailGunClient;
 
     public void sendWelcomeMessage(String toEmail) {
+        if (outboundProperties.getEmailDisabled()) {
+            log.log(Level.INFO, "Skipping Email sending , Email service is disabled");
+            return;
+        }
 
         String fromEmail = "Gift App <noreply@giftapp.com>";
         String subject = "Welcome to Gift app";

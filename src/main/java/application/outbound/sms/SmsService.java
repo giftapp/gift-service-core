@@ -1,6 +1,6 @@
 package application.outbound.sms;
 
-import application.configuration.PropertiesConfiguration;
+import application.outbound.OutboundProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,13 +18,13 @@ public class SMSService {
     private static final Logger log = Logger.getLogger( SMSService.class.getName() );
 
     @Autowired
-    private TwilioClient twilioClient;
+    OutboundProperties outboundProperties;
 
     @Autowired
-    PropertiesConfiguration propertiesConfiguration;
+    private TwilioClient twilioClient;
 
     public void sendVerificationSMS(String toNumber, int verificationCode) {
-        if (propertiesConfiguration.getSmsDisabled()) {
+        if (outboundProperties.getSmsDisabled()) {
             log.log(Level.INFO, "Skipping SMS sending , SMS service is disabled");
             return;
         }

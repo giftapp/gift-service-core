@@ -9,4 +9,7 @@ multipart:
 storage:
   location: /Users/matan/Downloads/gift/files
 
+outbound:
+  smsDisabled: true
+
 #logging.level.org.springframework.web: DEBUG
