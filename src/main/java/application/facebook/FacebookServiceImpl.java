@@ -46,7 +46,7 @@ public class FacebookServiceImpl implements FacebookService {
     public User updateUserFromToken(User user, String userFacebookAccessToken) {
         try {
             DefaultFacebookClient userFacebookClient = new DefaultFacebookClient(userFacebookAccessToken, Version.VERSION_2_6);
-            com.restfb.types.User fbUser = userFacebookClient.fetchObject("me", com.restfb.types.User.class, Parameter.with("fields", "id,first_name,last_name,email,picture"));
+            com.restfb.types.User fbUser = userFacebookClient.fetchObject("me", com.restfb.types.User.class, Parameter.with("fields", "id,first_name,last_name,email,picture.width(160).height(160)"));
             user.setFirstName(fbUser.getFirstName());
             user.setLastName(fbUser.getLastName());
             user.setEmail(fbUser.getEmail());
