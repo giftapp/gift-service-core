@@ -29,7 +29,7 @@ public class EmailService {
             return;
         }
 
-        String fromEmail = "Gift App <noreply@giftapp.com>";
+        String fromEmail = "Gift App <noreply@giftapp.co.il>";
         String subject = "Welcome to Gift app";
         String text = "Welcome message :)";
 
