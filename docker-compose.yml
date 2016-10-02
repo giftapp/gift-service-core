@@ -1,0 +1,22 @@
+version: '2'
+services:
+  mongodb:
+    container_name: gift-database
+    image: mongo:3.2
+    ports:
+        - "27017:27017"
+    command: mongod --smallfiles
+  web:
+    container_name: gift-core-service
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: gift-core-service-image
+    depends_on: # gift-database will be started before the gift-core-service
+      - mongodb
+    ports:
+      - "8080:8080"
+    links:
+      - mongodb
+#    environment:
+#      SPRING_DATA_MONGODB_HOST: localhost

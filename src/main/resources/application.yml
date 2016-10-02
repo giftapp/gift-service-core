@@ -7,7 +7,16 @@ multipart:
   max-request-size: 2Mb
 
 storage:
-  location: /Users/matan/Downloads/gift/files
+  location: /files
+
+spring:
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: giftDB
+      username: gift-service-core
+      password: gift-service-core1234
 
 outbound:
   smsDisabled: true

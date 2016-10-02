@@ -2,11 +2,16 @@ package application.configuration;
 
 import com.mongodb.Mongo;
 import com.mongodb.MongoClient;
-import com.mongodb.MongoClientURI;
+import com.mongodb.MongoCredential;
+import com.mongodb.ServerAddress;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.mongodb.config.AbstractMongoConfiguration;
 import org.springframework.data.mongodb.config.EnableMongoAuditing;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
+
+import java.util.Arrays;
 
 /**
  * Created by matan on 09/05/2016.
@@ -17,14 +22,31 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 @EnableMongoAuditing
 class MongoDBConfiguration extends AbstractMongoConfiguration {
 
+    @Value("${spring.data.mongodb.host}")
+    private String mongoHost;
+
+    @Value("${spring.data.mongodb.port}")
+    private int mongoPort;
+
+    @Value("${spring.data.mongodb.database}")
+    private String mongoDB;
+
+    @Value("${spring.data.mongodb.username}")
+    private String username;
+
+    @Value("${spring.data.mongodb.password}")
+    private char[] password;
+
     @Override
     protected String getDatabaseName() {
-        return "giftDB";
+        return mongoDB;
     }
 
     @Override
+    @Bean
     public Mongo mongo() throws Exception {
-        return new MongoClient(new MongoClientURI("mongodb://gift-service-core:gift-service-core1234@localhost:27017/giftDB"));
+        MongoCredential mongoCredential = MongoCredential.createCredential(username, mongoDB, password);
+        return new MongoClient(new ServerAddress(mongoHost, mongoPort) , Arrays.asList(mongoCredential));
     }
 
     @Override
