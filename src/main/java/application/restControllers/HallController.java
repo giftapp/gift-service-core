@@ -22,7 +22,7 @@ import java.util.logging.Logger;
 
 @RestController
 @RequestMapping("/hall")
-public class HallController extends AuthorizedControllerBase {
+public class HallController {
     private static final Logger log = Logger.getLogger( UserController.class.getName() );
 
     @Autowired

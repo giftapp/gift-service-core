@@ -7,8 +7,11 @@ package application.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.AuthorityUtils;
 
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Document
 public class User extends PersistedObject {
@@ -28,6 +31,9 @@ public class User extends PersistedObject {
     @JsonIgnore
     private String facebookAccessToken;
 
+    @JsonIgnore
+    List<GrantedAuthority> authorities;
+
     private Boolean needsEdit;
 
     public User() {
@@ -44,6 +50,7 @@ public class User extends PersistedObject {
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.avatarURL = avatarURL;
+        this.authorities = AuthorityUtils.createAuthorityList(AuthorityName.ROLE_USER.name());
     }
 
     public String getFirstName() {
@@ -106,5 +113,13 @@ public class User extends PersistedObject {
 
     public void setNeedsEdit(Boolean needsEdit) {
         this.needsEdit = needsEdit;
+    }
+
+    public List<GrantedAuthority> getAuthorities() {
+        return authorities;
+    }
+
+    public void setAuthorities(List<GrantedAuthority> authorities) {
+        this.authorities = authorities;
     }
 }

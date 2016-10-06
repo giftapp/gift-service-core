@@ -22,18 +22,18 @@ public class PhoneNumberChallenge extends PersistedObject {
     private String phoneNumber;
 
     @NotNull
-    private int verificationCode;
+    private String verificationCode;
 
     public PhoneNumberChallenge(String phoneNumber) {
         this.phoneNumber = phoneNumber;
-        this.verificationCode = ThreadLocalRandom.current().nextInt(MIN_CHALLENGE, MAX_CHALLENGE + 1);
+        this.verificationCode = Integer.toString(ThreadLocalRandom.current().nextInt(MIN_CHALLENGE, MAX_CHALLENGE + 1));
     }
 
     public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public int getVerificationCode() {
+    public String getVerificationCode() {
         return verificationCode;
     }
 }

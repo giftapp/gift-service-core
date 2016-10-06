@@ -14,7 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/file")
-public class FileController extends AuthorizedControllerBase {
+public class FileController {
 
     @Autowired
     private StorageService storageService;

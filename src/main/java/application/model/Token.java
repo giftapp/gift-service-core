@@ -4,7 +4,6 @@ import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.validation.constraints.NotNull;
-import java.util.UUID;
 
 /**
  * Created by matan,
@@ -21,9 +20,9 @@ public class Token extends PersistedObject {
     @DBRef
     private User user;
 
-    public Token(User user) {
+    public Token(User user, String accessToken) {
         this.user = user;
-        this.accessToken = UUID.randomUUID().toString();
+        this.accessToken = accessToken;
     }
 
     public String getAccessToken() {

@@ -17,7 +17,7 @@ import java.util.logging.Logger;
 
 @RestController
 @RequestMapping("/event")
-public class EventController extends AuthorizedControllerBase {
+public class EventController {
 
     private static final Logger log = Logger.getLogger( UserController.class.getName() );
 

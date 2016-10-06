@@ -13,7 +13,7 @@ import java.util.logging.Logger;
 
 @RestController
 @RequestMapping("/gift")
-public class GiftController extends AuthorizedControllerBase {
+public class GiftController {
 
     private static final Logger log = Logger.getLogger( UserController.class.getName() );
 

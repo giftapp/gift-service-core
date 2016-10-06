@@ -23,7 +23,7 @@ public class SMSService {
     @Autowired
     private TwilioClient twilioClient;
 
-    public void sendVerificationSMS(String toNumber, int verificationCode) {
+    public void sendVerificationSMS(String toNumber, String verificationCode) {
         if (outboundProperties.getSmsDisabled()) {
             log.log(Level.INFO, "Skipping SMS sending , SMS service is disabled");
             return;
