@@ -5,6 +5,8 @@ package application.repositories.file;
  * On 23/09/2016.
  */
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
@@ -18,13 +20,12 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.UUID;
-import java.util.logging.Logger;
 import java.util.stream.Stream;
 
 @Service
 public class FileSystemStorageService implements StorageService {
 
-    private static final Logger log = Logger.getLogger( FileSystemStorageService.class.getName() );
+    private static final Logger logger = LoggerFactory.getLogger(FileSystemStorageService.class);
 
     private final Path rootLocation;
 

@@ -1,5 +1,7 @@
 package application.security.filter;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.core.Authentication;
@@ -14,8 +16,6 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.Optional;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Implementation of {@link javax.servlet.Filter} which handle requests with jwt token within their header.
@@ -25,7 +25,7 @@ import java.util.logging.Logger;
  */
 public class JwtAuthenticationTokenFilter extends GenericFilterBean {
 
-    private static final Logger log = Logger.getLogger( JwtAuthenticationTokenFilter.class.getName() );
+    private static final Logger logger = LoggerFactory.getLogger(JwtAuthenticationTokenFilter.class);
 
     private static final String BEARER_HEADER_PREFIX = "bearer";
 
@@ -52,7 +52,7 @@ public class JwtAuthenticationTokenFilter extends GenericFilterBean {
     }
 
     private void processTokenAuthentication(String token) {
-        log.log(Level.FINE, "JWT filter is processing a token");
+        logger.debug("JWT filter is processing a token");
         Authentication resultOfAuthentication = tryToAuthenticateWithToken(token);
         SecurityContextHolder.getContext().setAuthentication(resultOfAuthentication);
     }
@@ -63,7 +63,7 @@ public class JwtAuthenticationTokenFilter extends GenericFilterBean {
         if (responseAuthentication == null || !responseAuthentication.isAuthenticated()) {
             throw new InternalAuthenticationServiceException("Unable to authenticate Domain User for provided credentials");
         }
-        log.log(Level.FINE, "JWT filter successfully authenticated a user");
+        logger.debug("JWT filter successfully authenticated a user");
         return responseAuthentication;
     }
 

@@ -6,6 +6,8 @@ import application.repositories.utils.RepositoryUtils;
 import application.restAPI.errorHandling.exceptions.ObjectAlreadyExistEcxeption;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.geo.GeoJsonPoint;
 import org.springframework.http.MediaType;
@@ -14,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.List;
-import java.util.logging.Logger;
 
 /**
  * Created by matan on 13/05/2016.
@@ -23,7 +24,7 @@ import java.util.logging.Logger;
 @RestController
 @RequestMapping("/hall")
 public class HallController {
-    private static final Logger log = Logger.getLogger( UserController.class.getName() );
+    private static final Logger logger = LoggerFactory.getLogger(HallController.class);
 
     @Autowired
     private HallRepository hallRepository;

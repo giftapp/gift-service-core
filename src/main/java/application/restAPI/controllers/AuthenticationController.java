@@ -9,6 +9,8 @@ import application.restAPI.dto.request.VerifyPhoneNumberRequestDTO;
 import application.restAPI.dto.response.TokenResponseDTOImpl;
 import application.security.Authenticator;
 import application.security.authentication.AuthenticationWithToken;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
@@ -21,8 +23,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Created by matan,
@@ -31,7 +31,7 @@ import java.util.logging.Logger;
 
 @RestController
 public class AuthenticationController implements AuthenticationControllerAPI {
-    private static final Logger log = Logger.getLogger( AuthenticationController.class.getName() );
+    private static final Logger logger = LoggerFactory.getLogger(AuthenticationController.class);
 
     @Autowired
     private Authenticator authenticator;
@@ -52,7 +52,7 @@ public class AuthenticationController implements AuthenticationControllerAPI {
         //create a challenge in db
         PhoneNumberChallenge phoneNumberChallenge = authenticator.generatePhoneNumberChallenge(verifyPhoneNumberRequestDTO.getPhoneNumber());
 
-        log.log(Level.INFO, "Sending SMS with verification code: " + phoneNumberChallenge.getVerificationCode());
+        logger.info("Sending SMS with verification code: " + phoneNumberChallenge.getVerificationCode());
         smsService.sendVerificationSMS(phoneNumberChallenge.getPhoneNumber(), phoneNumberChallenge.getVerificationCode());
         return ResponseEntity.accepted().build();
     }
@@ -71,7 +71,7 @@ public class AuthenticationController implements AuthenticationControllerAPI {
         }
 
         // Return the token
-        log.log(Level.FINE, "Successfully authenticated with phone number challenge");
+        logger.debug("Successfully authenticated with phone number challenge");
         String accessToken = authentication.getAccessToken();
         Token token = tokenRepository.findByAccessToken(accessToken).orElseThrow(() -> new InternalError("")); //TODO: proper exception
         return ResponseEntity.ok(new TokenResponseDTOImpl(token));

@@ -8,12 +8,12 @@ import application.repositories.user.UserRepository;
 import application.restAPI.errorHandling.exceptions.InvalidObjectIdException;
 import application.restAPI.errorHandling.exceptions.ObjectNotFoundException;
 import org.bson.types.ObjectId;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Created by matan on 22/05/2016.
@@ -22,7 +22,7 @@ import java.util.logging.Logger;
 @Service
 public class RepositoryUtils {
 
-    private static final Logger log = Logger.getLogger( RepositoryUtils.class.getName() );
+    private static final Logger logger = LoggerFactory.getLogger(RepositoryUtils.class);
 
     @Autowired
     private UserRepository userRepository;
@@ -43,7 +43,7 @@ public class RepositoryUtils {
         try {
             objectId = new ObjectId(id);
         } catch (IllegalArgumentException e) {
-            log.log(Level.WARNING, "Unable to parse ObjectId from: " + id);
+            logger.warn("Unable to parse ObjectId from: " + id);
             throw new InvalidObjectIdException(id);
         }
 

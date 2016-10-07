@@ -3,12 +3,12 @@ package application.security;
 import application.model.PhoneNumberChallenge;
 import application.repositories.phoneNumberChallenge.PhoneNumberChallengeRepository;
 import application.utils.TimeUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Created by matan on 20/05/2016.
@@ -17,7 +17,7 @@ import java.util.logging.Logger;
 @Component
 public class Authenticator {
 
-    private static final Logger log = Logger.getLogger( Authenticator.class.getName() );
+    private static final Logger logger = LoggerFactory.getLogger(Authenticator.class);
 
     @Autowired
     private PhoneNumberChallengeRepository phoneNumberChallengeRepository;
@@ -28,17 +28,17 @@ public class Authenticator {
         if (existingPhoneNumberChallenge.isPresent()) {
             if (TimeUtils.inLastHour(existingPhoneNumberChallenge.get().getCreatedAt())) {
                 //Valid challenge already exist! use it.
-                log.log(Level.FINE, "Reusing already existing phone number challenge code");
+                logger.debug("Reusing already existing phone number challenge code");
                 return existingPhoneNumberChallenge.get();
             } else {
                 //Challenge is too old
-                log.log(Level.FINE, "Deleting expired phone number challenge code");
+                logger.debug("Deleting expired phone number challenge code");
                 phoneNumberChallengeRepository.delete(existingPhoneNumberChallenge.get());
             }
         }
 
         //Creating new challenge
-        log.log(Level.FINE, "Creating new phone number challenge code");
+        logger.debug("Creating new phone number challenge code");
         PhoneNumberChallenge phoneNumberChallenge = new PhoneNumberChallenge(phoneNumber);
         phoneNumberChallengeRepository.save(phoneNumberChallenge);
         return phoneNumberChallenge;

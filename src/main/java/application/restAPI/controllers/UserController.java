@@ -11,6 +11,8 @@ import application.repositories.user.UserRepository;
 import application.repositories.utils.RepositoryUtils;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.MediaType;
@@ -19,7 +21,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.List;
-import java.util.logging.Logger;
 
 /**
  * Created by matan on 10/05/2016.
@@ -29,7 +30,7 @@ import java.util.logging.Logger;
 @RequestMapping("/user")
 public class UserController {
 
-    private static final Logger log = Logger.getLogger( UserController.class.getName() );
+    private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
     private static final String PATH_SHORTCUT_ME = "me";
 

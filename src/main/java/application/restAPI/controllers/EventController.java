@@ -3,13 +3,14 @@ package application.restAPI.controllers;
 import application.model.Event;
 import application.repositories.event.EventRepository;
 import application.repositories.utils.RepositoryUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Logger;
 
 /**
  * Created by matan on 13/05/2016.
@@ -19,7 +20,7 @@ import java.util.logging.Logger;
 @RequestMapping("/event")
 public class EventController {
 
-    private static final Logger log = Logger.getLogger( UserController.class.getName() );
+    private static final Logger logger = LoggerFactory.getLogger(EventController.class);
 
     @Autowired
     private EventRepository eventRepository;

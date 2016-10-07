@@ -6,10 +6,9 @@ import com.restfb.FacebookClient;
 import com.restfb.Parameter;
 import com.restfb.Version;
 import com.restfb.exception.FacebookException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
-
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Created by matan on 22/05/2016.
@@ -18,7 +17,7 @@ import java.util.logging.Logger;
 @Component
 public class FacebookServiceImpl implements FacebookService {
 
-    private static final Logger log = Logger.getLogger( FacebookServiceImpl.class.getName() );
+    private static final Logger logger = LoggerFactory.getLogger(FacebookServiceImpl.class);
 
     private static final String FB_APP_ID = "223077214742059";
     private static final String FB_APP_SECRET = "63f22cc75e015205555ffb925a882c09";
@@ -54,7 +53,7 @@ public class FacebookServiceImpl implements FacebookService {
             user.setFacebookAccessToken(userFacebookAccessToken);
             return user;
         } catch (FacebookException e) {
-            log.log(Level.SEVERE, "Failed updating user from facebook API" + e);
+            logger.error("Failed updating user from facebook API" + e);
             return null;
         }
     }
