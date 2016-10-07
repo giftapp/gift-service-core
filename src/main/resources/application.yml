@@ -1,5 +1,5 @@
 server:
-  contextPath: /api
+  contextPath: /api/v1
   port: 8080
 
 multipart:
