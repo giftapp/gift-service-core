@@ -1,14 +1,17 @@
-package application.restAPI.dto.response.impl;
+package application.restAPI.dto.response;
 
 import application.model.Token;
-import application.restAPI.dto.response.TokenResponseDTO;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 /**
  * Created by matan,
  * On 04/10/2016.
  */
-public class TokenResponseDTOImpl implements TokenResponseDTO {
+@ApiModel(value = "TokenResponse")
+public class TokenResponseDTOImpl {
 
+    @ApiModelProperty(value = "Access token")
     private Token token;
 
     public TokenResponseDTOImpl() {
@@ -18,7 +21,6 @@ public class TokenResponseDTOImpl implements TokenResponseDTO {
         this.token = token;
     }
 
-    @Override
     public Token getToken() {
         return token;
     }

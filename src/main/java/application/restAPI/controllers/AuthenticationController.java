@@ -4,9 +4,9 @@ import application.model.PhoneNumberChallenge;
 import application.model.Token;
 import application.outbound.sms.SMSService;
 import application.repositories.token.TokenRepository;
-import application.restAPI.dto.request.impl.PhoneNumberAuthenticationRequestDTOImpl;
-import application.restAPI.dto.request.impl.VerifyPhoneNumberRequestDTOImpl;
-import application.restAPI.dto.response.impl.TokenResponseDTOImpl;
+import application.restAPI.dto.request.PhoneNumberAuthenticationRequestDTO;
+import application.restAPI.dto.request.VerifyPhoneNumberRequestDTO;
+import application.restAPI.dto.response.TokenResponseDTOImpl;
 import application.security.Authenticator;
 import application.security.authentication.AuthenticationWithToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,7 +48,7 @@ public class AuthenticationController implements AuthenticationControllerAPI {
 
     //POST
     @Override
-    public ResponseEntity verifyPhoneNumber(@Valid @NotNull @RequestBody VerifyPhoneNumberRequestDTOImpl verifyPhoneNumberRequestDTO) {
+    public ResponseEntity verifyPhoneNumber(@Valid @NotNull @RequestBody VerifyPhoneNumberRequestDTO verifyPhoneNumberRequestDTO) {
         //create a challenge in db
         PhoneNumberChallenge phoneNumberChallenge = authenticator.generatePhoneNumberChallenge(verifyPhoneNumberRequestDTO.getPhoneNumber());
 
@@ -58,7 +58,7 @@ public class AuthenticationController implements AuthenticationControllerAPI {
     }
 
     @Override
-    public ResponseEntity getTokenWithPhoneNumberChallenge(@Valid @NotNull @RequestBody PhoneNumberAuthenticationRequestDTOImpl phoneNumberAuthenticationRequest) throws AuthenticationException {
+    public ResponseEntity getTokenWithPhoneNumberChallenge(@Valid @NotNull @RequestBody PhoneNumberAuthenticationRequestDTO phoneNumberAuthenticationRequest) throws AuthenticationException {
         // Perform the security
         try {
             final AuthenticationWithToken authentication = (AuthenticationWithToken) authenticationManager.authenticate(

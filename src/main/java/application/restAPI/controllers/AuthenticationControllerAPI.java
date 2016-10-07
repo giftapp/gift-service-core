@@ -1,8 +1,8 @@
 package application.restAPI.controllers;
 
-import application.restAPI.dto.request.impl.PhoneNumberAuthenticationRequestDTOImpl;
-import application.restAPI.dto.request.impl.VerifyPhoneNumberRequestDTOImpl;
-import application.restAPI.dto.response.impl.TokenResponseDTOImpl;
+import application.restAPI.dto.request.PhoneNumberAuthenticationRequestDTO;
+import application.restAPI.dto.request.VerifyPhoneNumberRequestDTO;
+import application.restAPI.dto.response.TokenResponseDTOImpl;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.http.MediaType;
@@ -30,7 +30,7 @@ public interface AuthenticationControllerAPI {
             position = 2)
     @RequestMapping(path = "/phoneNumberChallenge", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity verifyPhoneNumber(@ApiParam(name = "VerifyPhoneNumberRequest", required = true)
-                                     @Valid @NotNull @RequestBody VerifyPhoneNumberRequestDTOImpl verifyPhoneNumberRequestDTO);
+                                     @Valid @NotNull @RequestBody VerifyPhoneNumberRequestDTO verifyPhoneNumberRequestDTO);
 
     @ApiOperation(
             value = "Get token with phone number challenge",
@@ -41,5 +41,5 @@ public interface AuthenticationControllerAPI {
             position = 1)
     @RequestMapping(path = "/token", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity getTokenWithPhoneNumberChallenge(@ApiParam(name = "PhoneNumberAuthenticationRequest", required = true)
-                                                    @Valid @NotNull @RequestBody PhoneNumberAuthenticationRequestDTOImpl phoneNumberAuthenticationRequest) throws AuthenticationException;
+                                                    @Valid @NotNull @RequestBody PhoneNumberAuthenticationRequestDTO phoneNumberAuthenticationRequest) throws AuthenticationException;
 }
