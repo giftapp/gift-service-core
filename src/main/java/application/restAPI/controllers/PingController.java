@@ -1,4 +1,4 @@
-package application.restControllers;
+package application.restAPI.controllers;
 
 /**
  * Created by matan on 09/05/2016.

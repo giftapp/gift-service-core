@@ -1,4 +1,4 @@
-package application.restControllers.dto;
+package application.restAPI.dto;
 
 /**
  * Created by matan,

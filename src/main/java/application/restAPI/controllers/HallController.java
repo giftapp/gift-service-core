@@ -1,9 +1,9 @@
-package application.restControllers;
+package application.restAPI.controllers;
 
 import application.model.Hall;
 import application.repositories.hall.HallRepository;
 import application.repositories.utils.RepositoryUtils;
-import application.restControllers.exceptions.ObjectAlreadyExistEcxeption;
+import application.restAPI.errorHandling.exceptions.ObjectAlreadyExistEcxeption;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.beans.factory.annotation.Autowired;

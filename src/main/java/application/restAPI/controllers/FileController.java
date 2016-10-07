@@ -1,4 +1,4 @@
-package application.restControllers;
+package application.restAPI.controllers;
 
 import application.repositories.file.StorageFileNotFoundException;
 import application.repositories.file.StorageService;

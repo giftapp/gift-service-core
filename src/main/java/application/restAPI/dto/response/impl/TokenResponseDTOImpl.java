@@ -1,7 +1,7 @@
-package application.restControllers.dto.response.impl;
+package application.restAPI.dto.response.impl;
 
 import application.model.Token;
-import application.restControllers.dto.response.TokenResponseDTO;
+import application.restAPI.dto.response.TokenResponseDTO;
 
 /**
  * Created by matan,

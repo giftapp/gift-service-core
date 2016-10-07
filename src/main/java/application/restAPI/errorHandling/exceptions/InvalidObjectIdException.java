@@ -1,4 +1,4 @@
-package application.restControllers.exceptions;
+package application.restAPI.errorHandling.exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

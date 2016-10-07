@@ -1,4 +1,4 @@
-package application.restControllers;
+package application.restAPI.controllers;
 
 import application.model.Event;
 import application.repositories.event.EventRepository;

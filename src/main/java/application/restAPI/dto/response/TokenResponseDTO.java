@@ -1,7 +1,7 @@
-package application.restControllers.dto.response;
+package application.restAPI.dto.response;
 
 import application.model.Token;
-import application.restControllers.dto.response.impl.TokenResponseDTOImpl;
+import application.restAPI.dto.response.impl.TokenResponseDTOImpl;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;

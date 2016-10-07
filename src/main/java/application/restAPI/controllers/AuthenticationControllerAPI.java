@@ -1,8 +1,8 @@
-package application.restControllers;
+package application.restAPI.controllers;
 
-import application.restControllers.dto.request.impl.PhoneNumberAuthenticationRequestDTOImpl;
-import application.restControllers.dto.request.impl.VerifyPhoneNumberRequestDTOImpl;
-import application.restControllers.dto.response.impl.TokenResponseDTOImpl;
+import application.restAPI.dto.request.impl.PhoneNumberAuthenticationRequestDTOImpl;
+import application.restAPI.dto.request.impl.VerifyPhoneNumberRequestDTOImpl;
+import application.restAPI.dto.response.impl.TokenResponseDTOImpl;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.http.MediaType;

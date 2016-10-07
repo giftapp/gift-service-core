@@ -1,4 +1,4 @@
-package application.restControllers;
+package application.restAPI.controllers;
 
 import application.repositories.gift.GiftRepository;
 import org.springframework.beans.factory.annotation.Autowired;

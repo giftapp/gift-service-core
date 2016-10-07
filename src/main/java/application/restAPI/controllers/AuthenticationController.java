@@ -1,12 +1,12 @@
-package application.restControllers;
+package application.restAPI.controllers;
 
 import application.model.PhoneNumberChallenge;
 import application.model.Token;
 import application.outbound.sms.SMSService;
 import application.repositories.token.TokenRepository;
-import application.restControllers.dto.request.impl.PhoneNumberAuthenticationRequestDTOImpl;
-import application.restControllers.dto.request.impl.VerifyPhoneNumberRequestDTOImpl;
-import application.restControllers.dto.response.impl.TokenResponseDTOImpl;
+import application.restAPI.dto.request.impl.PhoneNumberAuthenticationRequestDTOImpl;
+import application.restAPI.dto.request.impl.VerifyPhoneNumberRequestDTOImpl;
+import application.restAPI.dto.response.impl.TokenResponseDTOImpl;
 import application.security.Authenticator;
 import application.security.authentication.AuthenticationWithToken;
 import org.springframework.beans.factory.annotation.Autowired;

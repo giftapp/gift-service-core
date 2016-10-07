@@ -1,7 +1,7 @@
-package application.restControllers.dto.request.impl;
+package application.restAPI.dto.request.impl;
 
-import application.restControllers.dto.ValidationUtils;
-import application.restControllers.dto.request.PhoneNumberAuthenticationRequestDTO;
+import application.restAPI.dto.ValidationUtils;
+import application.restAPI.dto.request.PhoneNumberAuthenticationRequestDTO;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.validator.constraints.Length;
@@ -36,7 +36,7 @@ public class PhoneNumberAuthenticationRequestDTOImpl implements PhoneNumberAuthe
         this.verificationCode = verificationCode;
     }
 
-    @Override
+//    @Override
     public String getPhoneNumber() {
         return phoneNumber;
     }
@@ -45,7 +45,7 @@ public class PhoneNumberAuthenticationRequestDTOImpl implements PhoneNumberAuthe
         this.phoneNumber = phoneNumber;
     }
 
-    @Override
+//    @Override
     public String getVerificationCode() {
         return verificationCode;
     }

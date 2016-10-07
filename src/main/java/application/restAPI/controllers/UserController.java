@@ -1,4 +1,4 @@
-package application.restControllers;
+package application.restAPI.controllers;
 
 import application.facebook.FacebookService;
 import application.model.Event;
