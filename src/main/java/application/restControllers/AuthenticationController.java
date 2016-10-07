@@ -30,8 +30,8 @@ import java.util.logging.Logger;
  */
 
 @RestController
-public class AuthorizationController implements AuthorizationControllerAPI {
-    private static final Logger log = Logger.getLogger( AuthorizationController.class.getName() );
+public class AuthenticationController implements AuthenticationControllerAPI {
+    private static final Logger log = Logger.getLogger( AuthenticationController.class.getName() );
 
     @Autowired
     private Authenticator authenticator;

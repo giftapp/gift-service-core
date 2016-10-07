@@ -76,8 +76,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 //whatever is here is ignored by All of Spring Security
 
                 //Authentication
-                .antMatchers("/authorize/phoneNumberChallenge")
-                .antMatchers("/authorize/token")
+                .antMatchers("/authentication/phoneNumberChallenge")
+                .antMatchers("/authentication/token")
 
                 //Swagger
                 .antMatchers("/webjars/springfox-swagger-ui/**")
@@ -95,7 +95,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).
                 and().
                 authorizeRequests().
-                antMatchers("/authorize/**").permitAll().
+                antMatchers("/authentication/**").permitAll().
                 anyRequest().authenticated().
                 and().
                 anonymous().disable().

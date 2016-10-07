@@ -19,8 +19,8 @@ import javax.validation.constraints.NotNull;
  * Created by matan,
  * On 07/10/2016.
  */
-@RequestMapping("/authorize")
-public interface AuthorizationControllerAPI {
+@RequestMapping("/authentication")
+public interface AuthenticationControllerAPI {
     //POST
     @ApiOperation(
             value = "Verify a phone number",
