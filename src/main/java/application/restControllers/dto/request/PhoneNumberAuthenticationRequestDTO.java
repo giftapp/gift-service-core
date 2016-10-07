@@ -10,8 +10,6 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.validation.constraints.Pattern;
 
-//import javax.validation.constraints.Pattern;
-
 /**
  * Created by matan,
  * On 06/10/2016.
