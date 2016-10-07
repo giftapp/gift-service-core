@@ -1,11 +1,10 @@
 package application.outbound.sms;
 
 import application.outbound.OutboundProperties;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Created by matan,
@@ -15,7 +14,7 @@ import java.util.logging.Logger;
 @Service
 public class SMSService {
 
-    private static final Logger log = Logger.getLogger( SMSService.class.getName() );
+    private static final Logger logger = LoggerFactory.getLogger(SMSService.class);
 
     @Autowired
     OutboundProperties outboundProperties;
@@ -25,14 +24,14 @@ public class SMSService {
 
     public void sendVerificationSMS(String toNumber, String verificationCode) {
         if (outboundProperties.getSmsDisabled()) {
-            log.log(Level.INFO, "Skipping SMS sending , SMS service is disabled");
+            logger.info("Skipping SMS sending , SMS service is disabled");
             return;
         }
 
         String text = "Welcome to Gift App, your verification code is: " + verificationCode;
 
         twilioClient.sendSMS(toNumber,text);
-        log.log(Level.INFO, "Verification SMS sent to: " + toNumber);
+        logger.info("Verification SMS sent to: " + toNumber);
     }
 
 }
