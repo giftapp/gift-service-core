@@ -1,5 +1,6 @@
 package application.restControllers.dto.request.impl;
 
+import application.restControllers.dto.ValidationUtils;
 import application.restControllers.dto.request.VerifyPhoneNumberRequestDTO;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -17,7 +18,7 @@ public class VerifyPhoneNumberRequestDTOImpl implements VerifyPhoneNumberRequest
 
     @ApiModelProperty(value = "Phone number to be validated", name = "phoneNumber", example = "0501234567")
     @NotEmpty(message = "Phone number cannot be null or empty")
-    @Pattern(regexp = "[0-9]+", message = "Phone number should contain numbers only")
+    @Pattern(regexp = ValidationUtils.IS_NUMERIC_REGEXP, message = "Phone number should contain numbers only")
     @Length(min = 10, max = 10, message = "Phone number should contain exactly 10 digits")
     private String phoneNumber;
 
