@@ -11,9 +11,9 @@ import application.security.Authenticator;
 import application.security.authentication.AuthenticationWithToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -60,27 +60,21 @@ public class AuthenticationController implements AuthenticationControllerAPI {
     @Override
     public ResponseEntity getTokenWithPhoneNumberChallenge(@Valid @NotNull @RequestBody PhoneNumberAuthenticationRequestDTO phoneNumberAuthenticationRequest) throws AuthenticationException {
         // Perform the security
-        try {
-            final AuthenticationWithToken authentication = (AuthenticationWithToken) authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(
-                            phoneNumberAuthenticationRequest.getPhoneNumber(),
-                            phoneNumberAuthenticationRequest.getVerificationCode()
-                    )
-            );
-            if (authentication == null || !authentication.isAuthenticated()) {
-                log.log(Level.FINE, "Failed to authenticated with phone number challenge");
-                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-            }
-
-            // Return the token
-            log.log(Level.FINE, "Successfully authenticated with phone number challenge");
-            String accessToken = authentication.getAccessToken();
-            Token token = tokenRepository.findByAccessToken(accessToken).orElseThrow(() -> new InternalError("")); //TODO: proper exception
-            return ResponseEntity.ok(new TokenResponseDTOImpl(token));
-        } catch (AuthenticationException e) {
-            log.log(Level.FINE, "Failed to authenticated with phone number challenge");
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        final AuthenticationWithToken authentication = (AuthenticationWithToken) authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        phoneNumberAuthenticationRequest.getPhoneNumber(),
+                        phoneNumberAuthenticationRequest.getVerificationCode()
+                )
+        );
+        if (authentication == null || !authentication.isAuthenticated()) {
+            throw new BadCredentialsException("Invalid Verification Code Credentials");
         }
+
+        // Return the token
+        log.log(Level.FINE, "Successfully authenticated with phone number challenge");
+        String accessToken = authentication.getAccessToken();
+        Token token = tokenRepository.findByAccessToken(accessToken).orElseThrow(() -> new InternalError("")); //TODO: proper exception
+        return ResponseEntity.ok(new TokenResponseDTOImpl(token));
     }
 
 }
