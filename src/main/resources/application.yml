@@ -1,6 +1,14 @@
 server:
   contextPath: /api/v1
-  port: 8080
+  port: 8443
+  ssl:
+    key-store: classpath:keystore.p12
+    key-password: giftapp
+    key-store-password: giftapp
+    key-store-type: PKCS12
+    key-alias: gift
+#    ciphers: ECDHE_RSA_WITH_AES_256_CBC_SHA384,TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA,TLS_RSA_WITH_AES_256_CBC_SHA256,TLS_RSA_WITH_AES_256_CBC_SHA
+    protocol: TLS
 
 multipart:
   max-file-size: 2Mb
@@ -24,6 +32,7 @@ security:
   token:
     header: Authorization
     expiration: 604800
+  require-ssl: true
 
 outbound:
   smsDisabled: true
