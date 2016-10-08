@@ -16,6 +16,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -119,14 +120,15 @@ public class UserController {
 
     //POST
     @RequestMapping(path = "/facebook", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public User setFacebookAccount(@ModelAttribute("currentUser") User currentUser, @Valid @RequestBody SetFaceBookAccountRequestBody setFaceBookAccountRequestBody) {
-        String originalEmail = currentUser.getEmail();
-        currentUser = facebookService.updateUserFromToken(currentUser,setFaceBookAccountRequestBody.facebookAccessToken);
-        currentUser.setNeedsEdit(false);
+    public User setFacebookAccount(@AuthenticationPrincipal String loggedInUserId, @Valid @RequestBody SetFaceBookAccountRequestBody setFaceBookAccountRequestBody) {
+        User loggedInUser = repositoryUtils.validateObjectExist(User.class, loggedInUserId);
+        String originalEmail = loggedInUser.getEmail();
+        loggedInUser = facebookService.updateUserFromToken(loggedInUser,setFaceBookAccountRequestBody.facebookAccessToken);
+        loggedInUser.setNeedsEdit(false);
 
-        sendWelcomeEmailIfNeeded(currentUser.getEmail(), originalEmail);
+        sendWelcomeEmailIfNeeded(loggedInUser.getEmail(), originalEmail);
 
-        return userRepository.save(currentUser);
+        return userRepository.save(loggedInUser);
     }
 
     private static final class SetFaceBookAccountRequestBody {
