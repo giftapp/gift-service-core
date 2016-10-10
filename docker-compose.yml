@@ -15,7 +15,7 @@ services:
     depends_on: # gift-database will be started before the gift-core-service
       - mongodb
     ports:
-      - "8080:8080"
+      - "8443:8443"
     links:
       - mongodb
 #    environment:
