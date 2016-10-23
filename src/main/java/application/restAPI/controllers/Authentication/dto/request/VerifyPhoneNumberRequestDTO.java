@@ -1,6 +1,6 @@
 package application.restAPI.controllers.Authentication.dto.request;
 
-import application.restAPI.controllers.Authentication.dto.ValidationUtils;
+import application.utils.ValidationUtils;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.validator.constraints.Length;
