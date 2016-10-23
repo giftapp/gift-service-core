@@ -52,7 +52,7 @@ public class AuthenticationControllerImpl implements AuthenticationControllerAPI
         //create a challenge in db
         PhoneNumberChallenge phoneNumberChallenge = authenticator.generatePhoneNumberChallenge(verifyPhoneNumberRequestDTO.getPhoneNumber());
 
-        logger.info("Sending SMS with verification code: " + phoneNumberChallenge.getVerificationCode());
+        logger.debug("Sending SMS with verification code: " + phoneNumberChallenge.getVerificationCode());
         smsService.sendVerificationSMS(phoneNumberChallenge.getPhoneNumber(), phoneNumberChallenge.getVerificationCode());
         return ResponseEntity.accepted().build();
     }

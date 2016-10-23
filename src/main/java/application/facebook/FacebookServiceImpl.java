@@ -37,6 +37,7 @@ public class FacebookServiceImpl implements FacebookService {
             FacebookClient.DebugTokenInfo tokenInfo = appFacebookClient.debugToken(userAccessToken);
             return tokenInfo.isValid();
         } catch (FacebookException e) {
+            logger.error("Error while validating facebook token" + e);
             return false;
         }
     }
@@ -51,6 +52,7 @@ public class FacebookServiceImpl implements FacebookService {
             user.setEmail(fbUser.getEmail());
             user.setAvatarURL(fbUser.getPicture().getUrl());
             user.setFacebookAccessToken(userFacebookAccessToken);
+            logger.debug("Updated user from facebook API successfully");
             return user;
         } catch (FacebookException e) {
             logger.error("Failed updating user from facebook API" + e);

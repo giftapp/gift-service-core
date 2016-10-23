@@ -25,6 +25,7 @@ public class MailGunClient {
 
 
     public ClientResponse sendEmail(String fromEmail, String toEmail, String subject, String text) {
+        logger.debug("Sending email via Mailgun v3 API");
         Client client = Client.create();
         client.addFilter(new HTTPBasicAuthFilter("api", MAILGUN_API_KEY));
         WebResource webResource = client.resource("https://api.mailgun.net/v3/" + MAILGUN_DOMAIN_NAME + "/messages");
