@@ -1,4 +1,4 @@
-package application.restAPI.dto;
+package application.restAPI.controllers.Authentication.dto;
 
 /**
  * Created by matan,

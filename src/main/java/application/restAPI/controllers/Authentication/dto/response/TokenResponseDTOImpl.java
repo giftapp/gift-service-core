@@ -1,4 +1,4 @@
-package application.restAPI.dto.response;
+package application.restAPI.controllers.Authentication.dto.response;
 
 import application.model.Token;
 import io.swagger.annotations.ApiModel;

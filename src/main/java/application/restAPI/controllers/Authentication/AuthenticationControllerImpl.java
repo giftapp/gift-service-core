@@ -1,12 +1,12 @@
-package application.restAPI.controllers;
+package application.restAPI.controllers.Authentication;
 
 import application.model.PhoneNumberChallenge;
 import application.model.Token;
 import application.outbound.sms.SMSService;
 import application.repositories.token.TokenRepository;
-import application.restAPI.dto.request.PhoneNumberAuthenticationRequestDTO;
-import application.restAPI.dto.request.VerifyPhoneNumberRequestDTO;
-import application.restAPI.dto.response.TokenResponseDTOImpl;
+import application.restAPI.controllers.Authentication.dto.request.PhoneNumberAuthenticationRequestDTO;
+import application.restAPI.controllers.Authentication.dto.request.VerifyPhoneNumberRequestDTO;
+import application.restAPI.controllers.Authentication.dto.response.TokenResponseDTOImpl;
 import application.security.Authenticator;
 import application.security.authentication.AuthenticationWithToken;
 import org.slf4j.Logger;
@@ -30,8 +30,8 @@ import javax.validation.constraints.NotNull;
  */
 
 @RestController
-public class AuthenticationController implements AuthenticationControllerAPI {
-    private static final Logger logger = LoggerFactory.getLogger(AuthenticationController.class);
+public class AuthenticationControllerImpl implements AuthenticationControllerAPI {
+    private static final Logger logger = LoggerFactory.getLogger(AuthenticationControllerImpl.class);
 
     @Autowired
     private Authenticator authenticator;
