@@ -50,7 +50,7 @@ public class User extends PersistedObject {
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.avatarURL = avatarURL;
-        this.authorities = AuthorityUtils.createAuthorityList(AuthorityName.ROLE_USER.name());
+        this.authorities = AuthorityUtils.createAuthorityList(AuthorityName.AuthorityNameEnum.USER.getRole());
     }
 
     public String getFirstName() {

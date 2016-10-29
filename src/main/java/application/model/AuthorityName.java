@@ -11,10 +11,29 @@ import java.util.List;
  * Created by matan,
  * On 04/10/2016.
  */
-public enum AuthorityName {
-    ROLE_ANONYMOUS, ROLE_USER, ROLE_ADMIN;
+public class AuthorityName {
+    public static final String ROLE_ANONYMOUS_STRING = "ROLE_ANONYMOUS";
+    public static final String ROLE_USER_STRING = "ROLE_USER";
+    public static final String ROLE_ADMIN_STRING = "ROLE_ADMIN";
 
-    public static List<GrantedAuthority> getGrantedAuthority(AuthorityName authorityName) {
-        return AuthorityUtils.createAuthorityList(authorityName.name());
+    public enum AuthorityNameEnum {
+        ANONYMOUS(ROLE_ANONYMOUS_STRING),
+        USER(ROLE_USER_STRING),
+        ADMIN(ROLE_ADMIN_STRING);
+
+        private String role;
+
+        AuthorityNameEnum(String role) {
+            this.role = role;
+        }
+
+        public String getRole() {
+            return role;
+        }
+
+        public static List<GrantedAuthority> getGrantedAuthority(AuthorityNameEnum authorityNameEnum) {
+            return AuthorityUtils.createAuthorityList(authorityNameEnum.getRole());
+        }
     }
+
 }

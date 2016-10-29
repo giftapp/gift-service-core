@@ -1,12 +1,15 @@
 package application.restAPI.controllers.User;
 
+import application.model.AuthorityName;
 import application.model.User;
 import application.restAPI.controllers.User.dto.request.SetFaceBookAccountRequestDTO;
 import application.restAPI.controllers.User.dto.request.UpdateUserRequestDTO;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,7 +24,12 @@ import java.util.List;
  * Created by Matan Lachmish,
  * On 23/10/2016.
  */
+@Api(
+        description = "Users API",
+        consumes = "application/json",
+        produces = "application/json")
 @RequestMapping("/user")
+@Secured(AuthorityName.ROLE_USER_STRING)
 public interface UserControllerAPI {
 
     //GET
@@ -29,6 +37,7 @@ public interface UserControllerAPI {
             value = "Get all users",
             notes = "List all existing users")
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @Secured(AuthorityName.ROLE_ADMIN_STRING)
     ResponseEntity<List<User>> getAllUsers();
 
     @ApiOperation(

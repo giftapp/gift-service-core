@@ -40,7 +40,7 @@ public class TokenAuthenticationProvider implements AuthenticationProvider {
         }
 
         //Return AuthenticationWithToken
-        AuthenticationWithToken authenticationWithToken = new AuthenticationWithToken(jwtTokenUtil.getUserIdFromToken(accessToken), null, AuthorityName.getGrantedAuthority(AuthorityName.ROLE_USER));
+        AuthenticationWithToken authenticationWithToken = new AuthenticationWithToken(jwtTokenUtil.getUserIdFromToken(accessToken), null, AuthorityName.AuthorityNameEnum.getGrantedAuthority(AuthorityName.AuthorityNameEnum.USER));
         authenticationWithToken.setAccessToken(accessToken);
         return authenticationWithToken;
     }
