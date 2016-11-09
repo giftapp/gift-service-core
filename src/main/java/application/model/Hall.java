@@ -1,38 +1,36 @@
 package application.model;
 
-import org.springframework.data.mongodb.core.geo.GeoJsonPoint;
-import org.springframework.data.mongodb.core.index.Indexed;
-import org.springframework.data.mongodb.core.mapping.Document;
-
+import javax.persistence.Entity;
 import javax.validation.constraints.NotNull;
 
 /**
  * Created by matan on 13/05/2016.
  */
 
-@Document
+@Entity
 public class Hall extends PersistedObject {
 
-    @Indexed
     private String googlePlaceId;
 
-    @Indexed
     @NotNull
     private String name;
 
-    @Indexed
     @NotNull
     private String address;
 
-    @Indexed
     @NotNull
-    GeoJsonPoint location;
+            //TODO: change to x and y
+    String location;
 
     private String URL;
 
     private String imageURL;
 
-    public Hall(String googlePlaceId, String name, String address, GeoJsonPoint location, String URL, String imageURL) {
+    protected Hall() {
+
+    }
+
+    public Hall(String googlePlaceId, String name, String address, String location, String URL, String imageURL) {
         this.googlePlaceId = googlePlaceId;
         this.name = name;
         this.address = address;
@@ -65,11 +63,11 @@ public class Hall extends PersistedObject {
         this.address = address;
     }
 
-    public GeoJsonPoint getLocation() {
+    public String getLocation() {
         return location;
     }
 
-    public void setLocation(GeoJsonPoint location) {
+    public void setLocation(String location) {
         this.location = location;
     }
 

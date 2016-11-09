@@ -1,18 +1,11 @@
 package application.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonSerializer;
-import com.fasterxml.jackson.databind.SerializerProvider;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import org.bson.types.ObjectId;
+import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.persistence.*;
-import java.io.IOException;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -20,12 +13,13 @@ import java.util.Date;
  * Created by matan on 11/05/2016.
  */
 
-@Document
+@Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public class PersistedObject implements Serializable {
+public abstract class PersistedObject implements Serializable {
     @Id
-    @JsonSerialize(using=ObjectID_Serializer.class)
-    private ObjectId id;
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "uuid2")
+    private String id;
 
     @CreatedDate
     @Temporal(TemporalType.TIMESTAMP)
@@ -37,7 +31,7 @@ public class PersistedObject implements Serializable {
     @JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
     private Date updatedAt;
 
-    public ObjectId getId() {
+    public String getId() {
         return id;
     }
 
@@ -76,22 +70,4 @@ public class PersistedObject implements Serializable {
     public int hashCode() {
         return id.hashCode();
     }
-}
-
-/**
- * Serialize ObjectId class to string
- */
-class ObjectID_Serializer extends JsonSerializer<ObjectId> {
-
-    @Override
-    public void serialize(ObjectId objid, JsonGenerator jsongen, SerializerProvider provider) throws IOException, JsonProcessingException {
-
-        if(objid == null ){
-            jsongen.writeNull();
-        }else{
-            jsongen.writeString(objid.toString());
-        }
-
-    }
-
 }

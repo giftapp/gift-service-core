@@ -1,15 +1,14 @@
 package application.repositories.event;
 
 import application.model.Event;
-import org.bson.types.ObjectId;
-import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.repository.CrudRepository;
 
 import java.util.Optional;
 
 /**
  * Created by matan on 13/05/2016.
  */
-public interface EventRepository extends MongoRepository<Event, Long>, EventRepositoryCustom {
+public interface EventRepository extends CrudRepository<Event, String>, EventRepositoryCustom {
 
-    Optional<Event> findById(ObjectId objectId);
+    Optional<Event> findById(String id);
 }

@@ -1,9 +1,10 @@
 package application.repositories.phoneNumberChallenge;
 
 import application.model.PhoneNumberChallenge;
-import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
+import javax.transaction.Transactional;
 import java.util.Optional;
 
 /**
@@ -12,7 +13,8 @@ import java.util.Optional;
  */
 
 @Repository
-public interface PhoneNumberChallengeRepository extends MongoRepository<PhoneNumberChallenge, Long> {
+@Transactional
+public interface PhoneNumberChallengeRepository extends CrudRepository<PhoneNumberChallenge, String> {
 
     Optional<PhoneNumberChallenge> findByPhoneNumber(String phoneNumber);
 

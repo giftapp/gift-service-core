@@ -18,13 +18,22 @@ storage:
   location: /Users/matan/Downloads/gift/files
 
 spring:
-  data:
-    mongodb:
-      host: localhost
-      port: 27017
-      database: giftDB
-      username: gift-service-core
-      password: gift-service-core1234
+  datasource:
+      url: jdbc:mysql://localhost/giftDB
+      username: root
+      password: admin
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      # Keep the connection alive if idle for a long time (needed in production)
+      testWhileIdle: true
+      validationQuery: SELECT 1
+  jpa:
+#    show-sql: true
+    hibernate:
+      ddl-auto: update
+      naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5Dialect
 
 security:
   identityPublicKey: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAkjy7X0THjUNp2rEdAI5WYIiKoUATPdcXmyBRPjcxCSW/tETeb8BSEeHU8ahRygFkKFJxt1bNpR/UZnbE50QmD1xx8V6SaDj5mTZeODJx8+QcaTii+BGDuKqvb44hLAG5FhQa5cOy6XuOkvtKudan2NMeY97pfZahSNXLJrJTrfvPLpXste6BV/B5+j2DhU2fJeAsHfqUEPreNPOxz38Da9WpQ/GmJzEawRPQE1GBh0BE3pLqQOWjf3UL8a76y37eTEVy81R90LxO7zTWdMWPgtmvX6UULXDp3jH9HIikX91upGrqYkatHHBV4Ck7KlAK2WJ/nvG2nGyMR/M5ZaC+LwIDAQAB

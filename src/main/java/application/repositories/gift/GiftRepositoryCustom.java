@@ -1,7 +1,6 @@
 package application.repositories.gift;
 
 import application.model.Gift;
-import org.bson.types.ObjectId;
 
 import java.util.List;
 
@@ -10,6 +9,6 @@ import java.util.List;
  */
 public interface GiftRepositoryCustom {
 
-    List<Gift> giftsForUser(ObjectId userId);
+    List<Gift> giftsForUser(String userId);
 
 }

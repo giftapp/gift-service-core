@@ -1,8 +1,8 @@
 package application.model;
 
-import org.springframework.data.mongodb.core.mapping.DBRef;
-import org.springframework.data.mongodb.core.mapping.Document;
-
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -10,15 +10,20 @@ import javax.validation.constraints.NotNull;
  * On 25/05/2016.
  */
 
-@Document
+@Entity
 public class Token extends PersistedObject {
 
     @NotNull
+    @Column(length = 1024)
     private String accessToken;
 
     @NotNull
-    @DBRef
+    @OneToOne
     private User user;
+
+    protected Token() {
+
+    }
 
     public Token(User user, String accessToken) {
         this.user = user;

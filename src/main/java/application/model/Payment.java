@@ -1,20 +1,19 @@
 package application.model;
 
-import org.bson.types.ObjectId;
-
+import javax.persistence.Entity;
 import javax.validation.constraints.NotNull;
 
 /**
  * Created by matan on 13/05/2016.
  */
-
-public class Payment {
-
-    @NotNull
-    private ObjectId userId;
+@Entity
+public class Payment extends PersistedObject {
 
     @NotNull
-    private ObjectId eventId;
+    private String userId;
+
+    @NotNull
+    private String eventId;
 
     @NotNull
     private double amount;
@@ -22,26 +21,30 @@ public class Payment {
     @NotNull
     private double numberOfPayments;
 
-    public Payment(ObjectId userId, ObjectId eventId, double amount, double numberOfPayments) {
+    protected Payment() {
+
+    }
+
+    public Payment(String userId, String eventId, double amount, double numberOfPayments) {
         this.userId = userId;
         this.eventId = eventId;
         this.amount = amount;
         this.numberOfPayments = numberOfPayments;
     }
 
-    public ObjectId getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(ObjectId userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 
-    public ObjectId getEventId() {
+    public String getEventId() {
         return eventId;
     }
 
-    public void setEventId(ObjectId eventId) {
+    public void setEventId(String eventId) {
         this.eventId = eventId;
     }
 

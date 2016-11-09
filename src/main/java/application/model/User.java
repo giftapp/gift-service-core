@@ -5,15 +5,16 @@ package application.model;
  */
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.springframework.data.mongodb.core.index.Indexed;
-import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
-@Document
+@Entity
 public class User extends PersistedObject {
 
     private String firstName;
@@ -22,8 +23,8 @@ public class User extends PersistedObject {
 
     private String email;
 
-    @Indexed(unique = true)
     @NotNull
+    @Column(unique=true)
     private String phoneNumber;
 
     private String avatarURL;
@@ -32,6 +33,8 @@ public class User extends PersistedObject {
     private String facebookAccessToken;
 
     @JsonIgnore
+    @ElementCollection
+            //todo: fix element collection
     List<GrantedAuthority> authorities;
 
     private Boolean needsEdit;

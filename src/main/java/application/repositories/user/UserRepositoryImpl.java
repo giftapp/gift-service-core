@@ -1,7 +1,5 @@
 package application.repositories.user;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.stereotype.Component;
 
 /**
@@ -10,9 +8,6 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class UserRepositoryImpl implements UserRepositoryCustom {
-
-    @Autowired
-    MongoOperations mongoOperations;
 
 //    @Override
 //    public Optional<User> findByAccessToken(String accessToken) {

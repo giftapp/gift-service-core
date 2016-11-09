@@ -1,8 +1,7 @@
 package application.repositories.user;
 
 import application.model.User;
-import org.bson.types.ObjectId;
-import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
@@ -13,8 +12,8 @@ import java.util.Optional;
  */
 
 @Repository
-public interface UserRepository extends MongoRepository<User, Long>, UserRepositoryCustom{
-    Optional<User> findById(ObjectId objectId);
+public interface UserRepository extends CrudRepository<User, String>, UserRepositoryCustom{
+    Optional<User> findById(String id);
     Optional<User> findByEmail(String email);
     Optional<User> findByFirstName(String username);
     Optional<User> findByPhoneNumber(String phoneNumber);

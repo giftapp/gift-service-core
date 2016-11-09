@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import java.util.List;
 
 /**
  * Created by Matan Lachmish,
@@ -33,12 +32,12 @@ import java.util.List;
 public interface UserControllerAPI {
 
     //GET
-    @ApiOperation(
-            value = "Get all users",
-            notes = "List all existing users")
-    @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    @Secured(AuthorityName.ROLE_ADMIN_STRING)
-    ResponseEntity<List<User>> getAllUsers();
+//    @ApiOperation(
+//            value = "Get all users",
+//            notes = "List all existing users")
+//    @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+//    @Secured(AuthorityName.ROLE_ADMIN_STRING)
+//    ResponseEntity<List<User>> getAllUsers();
 
     @ApiOperation(
             value = "Get user",

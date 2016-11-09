@@ -118,7 +118,7 @@ public class JwtTokenUtil {
 
     public String generateToken(User user) throws InvalidKeySpecException, NoSuchAlgorithmException {
         Map<String, Object> claims = new HashMap<>();
-        claims.put(CLAIM_KEY_USER_ID, user.getId().toString());
+        claims.put(CLAIM_KEY_USER_ID, user.getId());
         claims.put(CLAIM_KEY_USER_PHONE_NUMBER, user.getPhoneNumber());
         claims.put(CLAIM_KEY_TOKEN_TYPE, TOKEN_TYPE_ACCESS);
         claims.put(CLAIM_KEY_CREATED, new Date());

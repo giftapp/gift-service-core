@@ -1,46 +1,51 @@
 package application.model;
 
-import org.bson.types.ObjectId;
-import org.springframework.data.mongodb.core.mapping.Document;
-
+import javax.persistence.Entity;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
 /**
  * Created by matan on 13/05/2016.
  */
 
-@Document
+@Entity
 public class Gift extends PersistedObject {
 
     @NotNull
-    private ObjectId userId;
+    private String userId;
 
     @NotNull
-    private ObjectId eventId;
+    private String eventId;
 
-    @NotNull
+    @OneToOne
     private Payment payment;
 
+    @NotNull
+    @OneToOne
     private Toast toast;
 
-    public Gift(ObjectId userId, ObjectId eventId) {
+    protected Gift() {
+
+    }
+
+    public Gift(String userId, String eventId) {
         this.userId = userId;
         this.eventId = eventId;
     }
 
-    public ObjectId getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(ObjectId userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 
-    public ObjectId getEventId() {
+    public String getEventId() {
         return eventId;
     }
 
-    public void setEventId(ObjectId eventId) {
+    public void setEventId(String eventId) {
         this.eventId = eventId;
     }
 

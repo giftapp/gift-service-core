@@ -2,8 +2,7 @@ package application.repositories.token;
 
 import application.model.Token;
 import application.model.User;
-import org.bson.types.ObjectId;
-import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
@@ -14,9 +13,9 @@ import java.util.Optional;
  */
 
 @Repository
-public interface TokenRepository extends MongoRepository<Token, Long> {
+public interface TokenRepository extends CrudRepository<Token, String> {
 
-    Optional<Token> findById(ObjectId objectId);
+    Optional<Token> findById(String id);
     Optional<Token> findByAccessToken(String accessToken);
     Optional<Token> findByUser(User user);
 }

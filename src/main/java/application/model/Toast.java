@@ -1,41 +1,44 @@
 package application.model;
 
-import org.bson.types.ObjectId;
-
+import javax.persistence.Entity;
 import javax.validation.constraints.NotNull;
 
 /**
  * Created by matan on 13/05/2016.
  */
-
-public class Toast {
-
-    @NotNull
-    private ObjectId userId;
+@Entity
+public class Toast extends PersistedObject {
 
     @NotNull
-    private ObjectId eventId;
+    private String userId;
+
+    @NotNull
+    private String eventId;
 
     private String text;
 
-    public Toast(ObjectId userId, ObjectId eventId) {
+    protected Toast() {
+
+    }
+
+    public Toast(String userId, String eventId) {
         this.userId = userId;
         this.eventId = eventId;
     }
 
-    public ObjectId getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(ObjectId userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 
-    public ObjectId getEventId() {
+    public String getEventId() {
         return eventId;
     }
 
-    public void setEventId(ObjectId eventId) {
+    public void setEventId(String eventId) {
         this.eventId = eventId;
     }
 
