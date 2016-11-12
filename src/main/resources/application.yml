@@ -1,6 +1,6 @@
 server:
   contextPath: /api/v1
-  port: 8443
+  port: 443
   ssl:
     key-store: classpath:keystore.p12
     key-password: giftapp
@@ -15,7 +15,7 @@ multipart:
   max-request-size: 2Mb
 
 storage:
-  location: /Users/matan/Downloads/gift/files
+  location: files
 
 spring:
   datasource:
