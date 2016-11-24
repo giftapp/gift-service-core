@@ -93,7 +93,6 @@ public class UserControllerImpl implements UserControllerAPI {
         loggedInUser.setFirstName(updateUserRequestDTO.getFirstName());
         loggedInUser.setLastName(updateUserRequestDTO.getLastName());
         loggedInUser.setEmail(updateUserRequestDTO.getEmail());
-        loggedInUser.setPhoneNumber(updateUserRequestDTO.getPhoneNumber());
         loggedInUser.setAvatarURL(updateUserRequestDTO.getAvatarURL());
 
         loggedInUser.setNeedsEdit(false);
