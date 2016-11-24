@@ -73,6 +73,11 @@ task wrapper(type: Wrapper) {
     gradleVersion = '2.3'
 }
 
+//In order to inject spring profile
+bootRun {
+    systemProperties['spring.profiles.active']=project.gradle.startParameter.systemPropertiesArgs['spring.profiles.active'];
+}
+
 task buildDocker(type: Docker, dependsOn: build) {
     push = true
     applicationName = jar.baseName
