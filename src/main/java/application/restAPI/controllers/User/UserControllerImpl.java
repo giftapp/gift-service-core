@@ -9,6 +9,7 @@ import application.repositories.user.UserRepository;
 import application.repositories.utils.RepositoryUtils;
 import application.restAPI.controllers.User.dto.request.SetFaceBookAccountRequestDTO;
 import application.restAPI.controllers.User.dto.request.UpdateUserRequestDTO;
+import com.google.common.collect.Lists;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 /**
  * Created by matan on 10/05/2016.
@@ -53,11 +55,11 @@ public class UserControllerImpl implements UserControllerAPI {
     //REST ENDPOINTS
 
     //GET
-//    @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-//    public ResponseEntity<List<User>> getAllUsers() {
-//        List<User> userList = userRepository.findAll();
-//        return ResponseEntity.ok(userList);
-//    }
+    @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<User>> getAllUsers() {
+        List<User> userList = Lists.newArrayList(userRepository.findAll());
+        return ResponseEntity.ok(userList);
+    }
 
     @RequestMapping(path = "/{userId}" ,method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<User> getUser(@AuthenticationPrincipal String loggedInUserId, @PathVariable String userId) {
