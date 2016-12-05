@@ -1,4 +1,4 @@
-package application.restAPI.controllers;
+package application.restAPI.controllers.Venue;
 
 import application.model.Venue;
 import application.repositories.utils.RepositoryUtils;
@@ -17,13 +17,14 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 /**
- * Created by matan on 13/05/2016.
+ * Created by matan,
+ * On 05/12/2016.
  */
 
 @RestController
-@RequestMapping("/venue")
-public class VenueController {
-    private static final Logger logger = LoggerFactory.getLogger(VenueController.class);
+public class VenueControllerImpl implements VenueControllerAPI {
+
+    private static final Logger logger = LoggerFactory.getLogger(VenueControllerAPI.class);
 
     @Autowired
     private VenueRepository venueRepository;
