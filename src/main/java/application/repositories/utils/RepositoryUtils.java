@@ -3,8 +3,8 @@ package application.repositories.utils;
 import application.model.*;
 import application.repositories.event.EventRepository;
 import application.repositories.gift.GiftRepository;
-import application.repositories.hall.HallRepository;
 import application.repositories.user.UserRepository;
+import application.repositories.venue.VenueRepository;
 import application.restAPI.errorHandling.exceptions.InvalidObjectIdException;
 import application.restAPI.errorHandling.exceptions.ObjectNotFoundException;
 import org.slf4j.Logger;
@@ -27,7 +27,7 @@ public class RepositoryUtils {
     private UserRepository userRepository;
 
     @Autowired
-    private HallRepository hallRepository;
+    private VenueRepository venueRepository;
 
     @Autowired
     private GiftRepository giftRepository;
@@ -40,8 +40,8 @@ public class RepositoryUtils {
 
         if (type == User.class) {
             result = this.userRepository.findById(id);
-        } else if (type == Hall.class) {
-            result = this.hallRepository.findById(id);
+        } else if (type == Venue.class) {
+            result = this.venueRepository.findById(id);
         } else if (type == Gift.class) {
             result = this.giftRepository.findById(id);
         } else if (type == Event.class) {

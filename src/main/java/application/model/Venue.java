@@ -11,7 +11,7 @@ import javax.validation.constraints.NotNull;
  */
 
 @Entity
-public class Hall extends PersistedObject {
+public class Venue extends PersistedObject {
 
     @NotNull
     @Column(unique=true)
@@ -46,11 +46,11 @@ public class Hall extends PersistedObject {
         Pending, Approved, Denied
     }
 
-    protected Hall() {
+    protected Venue() {
 
     }
 
-    public Hall(String googlePlaceId, String name, String address, String phoneNumber, Float latitude, Float longitude, String googleMapsUrl, String website, String imageURL, VenueApprovedState approvedState) {
+    public Venue(String googlePlaceId, String name, String address, String phoneNumber, Float latitude, Float longitude, String googleMapsUrl, String website, String imageURL, VenueApprovedState approvedState) {
         this.googlePlaceId = googlePlaceId;
         this.name = name;
         this.address = address;

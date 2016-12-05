@@ -27,7 +27,7 @@ public class Event extends PersistedObject {
     private String brideName;
 
     @NotNull
-    private String hallId;
+    private String venueId;
 
     @ElementCollection
     private List<String> usersId;
@@ -35,11 +35,11 @@ public class Event extends PersistedObject {
     protected Event() {
     }
 
-    public Event(Date date, String groomName, String brideName, String hallId) {
+    public Event(Date date, String groomName, String brideName, String venueId) {
         this.date = date;
         this.groomName = groomName;
         this.brideName = brideName;
-        this.hallId = hallId;
+        this.venueId = venueId;
         this.usersId = new ArrayList<String>();
     }
 
@@ -67,12 +67,12 @@ public class Event extends PersistedObject {
         this.brideName = brideName;
     }
 
-    public String getHallId() {
-        return hallId;
+    public String getVenueId() {
+        return venueId;
     }
 
-    public void setHallId(String hallId) {
-        this.hallId = hallId;
+    public void setVenueId(String venueId) {
+        this.venueId = venueId;
     }
 
     public List<String> getUsersId() {
