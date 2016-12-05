@@ -1,6 +1,9 @@
 package application.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -10,6 +13,8 @@ import javax.validation.constraints.NotNull;
 @Entity
 public class Hall extends PersistedObject {
 
+    @NotNull
+    @Column(unique=true)
     private String googlePlaceId;
 
     @NotNull
@@ -18,25 +23,44 @@ public class Hall extends PersistedObject {
     @NotNull
     private String address;
 
+    private String phoneNumber;
+
     @NotNull
-            //TODO: change to x and y
-    String location;
+    @Column(columnDefinition="Decimal(10,8)")
+    private Float latitude;
 
-    private String URL;
+    @NotNull
+    @Column(columnDefinition="Decimal(11,8)")
+    private Float longitude;
 
-    private String imageURL;
+    private String googleMapsUrl;
+
+    private String website;
+
+    private String imageUrl;
+
+    @Enumerated(EnumType.STRING)
+    private VenueApprovedState approvedState;
+
+    enum VenueApprovedState {
+        Pending, Approved, Denied
+    }
 
     protected Hall() {
 
     }
 
-    public Hall(String googlePlaceId, String name, String address, String location, String URL, String imageURL) {
+    public Hall(String googlePlaceId, String name, String address, String phoneNumber, Float latitude, Float longitude, String googleMapsUrl, String website, String imageURL, VenueApprovedState approvedState) {
         this.googlePlaceId = googlePlaceId;
         this.name = name;
         this.address = address;
-        this.location = location;
-        this.URL = URL;
-        this.imageURL = imageURL;
+        this.phoneNumber = phoneNumber;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.googleMapsUrl = googleMapsUrl;
+        this.website = website;
+        this.imageUrl = imageURL;
+        this.approvedState = approvedState;
     }
 
     public String getGooglePlaceId() {
@@ -63,27 +87,59 @@ public class Hall extends PersistedObject {
         this.address = address;
     }
 
-    public String getLocation() {
-        return location;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
-    public String getURL() {
-        return URL;
+    public Float getLatitude() {
+        return latitude;
     }
 
-    public void setURL(String URL) {
-        this.URL = URL;
+    public void setLatitude(Float latitude) {
+        this.latitude = latitude;
     }
 
-    public String getImageURL() {
-        return imageURL;
+    public Float getLongitude() {
+        return longitude;
     }
 
-    public void setImageURL(String imageURL) {
-        this.imageURL = imageURL;
+    public void setLongitude(Float longitude) {
+        this.longitude = longitude;
+    }
+
+    public String getGoogleMapsUrl() {
+        return googleMapsUrl;
+    }
+
+    public void setGoogleMapsUrl(String googleMapsUrl) {
+        this.googleMapsUrl = googleMapsUrl;
+    }
+
+    public String getWebsite() {
+        return website;
+    }
+
+    public void setWebsite(String website) {
+        this.website = website;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public VenueApprovedState getApprovedState() {
+        return approvedState;
+    }
+
+    public void setApprovedState(VenueApprovedState approvedState) {
+        this.approvedState = approvedState;
     }
 }
