@@ -20,6 +20,5 @@ public interface VenueRepository extends CrudRepository<Venue, String> {
     @Query(FIND_VENUS_IN_RANGE_QUERY)
     Collection<Venue> findVenusInRange(@Param("latitude") Double latitude,
                                        @Param("longitude") Double longitude,
-                                       @Param("radius") Double radius,
-                                       @Param("R") Double R);
+                                       @Param("radius") Double radius);
 }

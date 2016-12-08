@@ -14,17 +14,19 @@ import java.util.List;
  */
 
 @Entity
-@Table(indexes = { @Index(name = "IDX_DATE", columnList = "date") })
+@Table(indexes = {  @Index(name = "IDX_DATE", columnList = "date"),
+                    @Index(name = "IDX_CONTACTS", columnList = "contact1,contact2"),
+                    @Index(name = "IDX_VENUE", columnList = "venueId")})
 public class Event extends PersistedObject {
 
     @NotNull
     private Date date;
 
     @NotNull
-    private String groomName;
+    private String contact1;
 
     @NotNull
-    private String brideName;
+    private String contact2;
 
     @NotNull
     private String venueId;
@@ -35,10 +37,10 @@ public class Event extends PersistedObject {
     protected Event() {
     }
 
-    public Event(Date date, String groomName, String brideName, String venueId) {
+    public Event(Date date, String contact1, String contact2, String venueId) {
         this.date = date;
-        this.groomName = groomName;
-        this.brideName = brideName;
+        this.contact1 = contact1;
+        this.contact2 = contact2;
         this.venueId = venueId;
         this.usersId = new ArrayList<String>();
     }
@@ -51,20 +53,20 @@ public class Event extends PersistedObject {
         this.date = date;
     }
 
-    public String getGroomName() {
-        return groomName;
+    public String getContact1() {
+        return contact1;
     }
 
-    public void setGroomName(String groomName) {
-        this.groomName = groomName;
+    public void setContact1(String contact1) {
+        this.contact1 = contact1;
     }
 
-    public String getBrideName() {
-        return brideName;
+    public String getContact2() {
+        return contact2;
     }
 
-    public void setBrideName(String brideName) {
-        this.brideName = brideName;
+    public void setContact2(String contact2) {
+        this.contact2 = contact2;
     }
 
     public String getVenueId() {

@@ -24,8 +24,6 @@ public class VenueService {
     @Autowired
     private RepositoryUtils repositoryUtils;
 
-    private static final double earthRadius = 6371;
-
     public List<Venue> getAllVenues() {
         List<Venue> venueList = Lists.newArrayList(venueRepository.findAll());
         return venueList;
@@ -37,7 +35,7 @@ public class VenueService {
     }
 
     public Collection<Venue> findVenusInRange(Double lat, Double lng, Double rad) {
-        Collection<Venue> venusInRange = venueRepository.findVenusInRange(lat, lng, rad, earthRadius);
+        Collection<Venue> venusInRange = venueRepository.findVenusInRange(lat, lng, rad);
         return venusInRange;
     }
 }
