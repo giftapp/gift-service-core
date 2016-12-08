@@ -1,9 +1,6 @@
 package application.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -11,6 +8,7 @@ import javax.validation.constraints.NotNull;
  */
 
 @Entity
+@Table(indexes = { @Index(name = "IDX_LOCATION", columnList = "latitude,longitude") })
 public class Venue extends PersistedObject {
 
     @NotNull
@@ -27,11 +25,11 @@ public class Venue extends PersistedObject {
 
     @NotNull
     @Column(columnDefinition="Decimal(10,8)")
-    private Float latitude;
+    private Double latitude;
 
     @NotNull
     @Column(columnDefinition="Decimal(11,8)")
-    private Float longitude;
+    private Double longitude;
 
     private String googleMapsUrl;
 
@@ -50,7 +48,7 @@ public class Venue extends PersistedObject {
 
     }
 
-    public Venue(String googlePlaceId, String name, String address, String phoneNumber, Float latitude, Float longitude, String googleMapsUrl, String website, String imageURL, VenueApprovedState approvedState) {
+    public Venue(String googlePlaceId, String name, String address, String phoneNumber, Double latitude, Double longitude, String googleMapsUrl, String website, String imageURL, VenueApprovedState approvedState) {
         this.googlePlaceId = googlePlaceId;
         this.name = name;
         this.address = address;
@@ -95,19 +93,19 @@ public class Venue extends PersistedObject {
         this.phoneNumber = phoneNumber;
     }
 
-    public Float getLatitude() {
+    public Double getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(Float latitude) {
+    public void setLatitude(Double latitude) {
         this.latitude = latitude;
     }
 
-    public Float getLongitude() {
+    public Double getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(Float longitude) {
+    public void setLongitude(Double longitude) {
         this.longitude = longitude;
     }
 

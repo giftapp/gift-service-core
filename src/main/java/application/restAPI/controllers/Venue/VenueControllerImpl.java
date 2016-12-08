@@ -1,19 +1,15 @@
 package application.restAPI.controllers.Venue;
 
 import application.model.Venue;
-import application.repositories.utils.RepositoryUtils;
-import application.repositories.venue.VenueRepository;
-import com.google.common.collect.Lists;
+import application.services.VenueService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -27,23 +23,26 @@ public class VenueControllerImpl implements VenueControllerAPI {
     private static final Logger logger = LoggerFactory.getLogger(VenueControllerAPI.class);
 
     @Autowired
-    private VenueRepository venueRepository;
-
-    @Autowired
-    private RepositoryUtils repositoryUtils;
+    private VenueService venueService;
 
     //REST ENDPOINTS
 
     //GET
+    @Override
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Venue>> getAllVenues() {
-        List<Venue> venueList = Lists.newArrayList(venueRepository.findAll());
-        return ResponseEntity.ok(venueList);
+        return ResponseEntity.ok(venueService.getAllVenues());
     }
 
+    @Override
     @RequestMapping(path = "/{venueId}" ,method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Venue getVenue(@PathVariable String venueId) {
-        return this.repositoryUtils.validateObjectExist(Venue.class, venueId);
+    public ResponseEntity<Venue> getVenue(@PathVariable String venueId) {
+        return ResponseEntity.ok(venueService.getVenue(venueId));
     }
 
+    @Override
+    @RequestMapping(path = "/nearbysearch", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Collection<Venue>> findVenusInRange(@RequestParam("lat") Double latitude, @RequestParam("lng") Double longitude, @RequestParam("rad") Double radius) {
+        return ResponseEntity.ok(venueService.findVenusInRange(latitude, longitude, radius));
+    }
 }
