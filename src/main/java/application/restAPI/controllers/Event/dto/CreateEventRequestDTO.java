@@ -25,7 +25,7 @@ public class CreateEventRequestDTO {
     @NotEmpty(message = "Event contact cannot be null or empty")
     private String contact2;
 
-    @ApiModelProperty(value = "Event venue id", name = "venueId", example = "00df2346-5973-4543-baa6-23604fc1ed5d")
+    @ApiModelProperty(value = "Event venue id", name = "venueId", example = "32ee4d84-c6d0-4038-8b87-f0cd20d4b862")
     @NotEmpty(message = "Event venue cannot be null or empty")
     private String venueId;
 
