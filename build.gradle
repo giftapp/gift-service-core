@@ -42,6 +42,9 @@ dependencies {
 
     //Spring
     compile "org.springframework.boot:spring-boot-starter-web:1.4.2.RELEASE"
+    compile "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.6.1" //Format java.time.LocalDate
+
+
     compile "org.springframework.plugin:spring-plugin-core:1.2.0.RELEASE"
     compile "org.springframework.boot:spring-boot-starter-data-jpa:1.4.2.RELEASE"
     compile "org.springframework.boot:spring-boot-configuration-processor:1.4.2.RELEASE"

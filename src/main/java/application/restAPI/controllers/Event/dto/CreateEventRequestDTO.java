@@ -11,8 +11,8 @@ import org.hibernate.validator.constraints.NotEmpty;
 @ApiModel(value = "CreateEventRequest")
 public class CreateEventRequestDTO {
 
-    @ApiModelProperty(value = "Event date as timestamp, if empty the event will create for the same day", name = "dateTimestamp", example = "1481231631181")
-    private Long dateTimestamp;
+    @ApiModelProperty(value = "Event date as timestamp, if empty the event will create for the same day", name = "dateTimestamp", example = "2016-12-14")
+    private String dateString;
 
     @ApiModelProperty(value = "Event first contact", name = "contact1", example = "Matan Lachmish")
     @NotEmpty(message = "Event contact cannot be null or empty")
@@ -29,19 +29,19 @@ public class CreateEventRequestDTO {
     public CreateEventRequestDTO() {
     }
 
-    public CreateEventRequestDTO(Long dateTimestamp, String contact1, String contact2, String venueId) {
-        this.dateTimestamp = dateTimestamp;
+    public CreateEventRequestDTO(String dateString, String contact1, String contact2, String venueId) {
+        this.dateString = dateString;
         this.contact1 = contact1;
         this.contact2 = contact2;
         this.venueId = venueId;
     }
 
-    public Long getDateTimestamp() {
-        return dateTimestamp;
+    public String getDateString() {
+        return dateString;
     }
 
-    public void setDateTimestamp(Long dateTimestamp) {
-        this.dateTimestamp = dateTimestamp;
+    public void setDateString(String dateString) {
+        this.dateString = dateString;
     }
 
     public String getContact1() {

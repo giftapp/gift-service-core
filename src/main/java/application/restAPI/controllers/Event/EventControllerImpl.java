@@ -51,7 +51,7 @@ public class EventControllerImpl implements EventControllerAPI {
     //POST
     @RequestMapping(path = "/event", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Event> createEvent(@Valid @RequestBody CreateEventRequestDTO createEventRequestDTO) {
-        return ResponseEntity.ok(eventService.createEvent(createEventRequestDTO.getDateTimestamp(), createEventRequestDTO.getContact1(), createEventRequestDTO.getContact2(), createEventRequestDTO.getVenueId()));
+        return ResponseEntity.ok(eventService.createEvent(createEventRequestDTO.getDateString(), createEventRequestDTO.getContact1(), createEventRequestDTO.getContact2(), createEventRequestDTO.getVenueId()));
     }
 
 }

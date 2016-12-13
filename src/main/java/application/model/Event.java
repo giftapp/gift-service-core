@@ -2,10 +2,13 @@ package application.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import javax.persistence.*;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.Index;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -19,9 +22,8 @@ import java.util.List;
 public class Event extends PersistedObject {
 
     @NotNull
-    @Temporal(TemporalType.TIMESTAMP)
-    @JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
-    private Date date;
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private LocalDate date;
 
     @NotNull
     private String contact1;
@@ -38,7 +40,7 @@ public class Event extends PersistedObject {
     protected Event() {
     }
 
-    public Event(Date date, String contact1, String contact2, String venueId) {
+    public Event(LocalDate date, String contact1, String contact2, String venueId) {
         this.date = date;
         this.contact1 = contact1;
         this.contact2 = contact2;
@@ -46,11 +48,11 @@ public class Event extends PersistedObject {
         this.usersId = new ArrayList<String>();
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 
