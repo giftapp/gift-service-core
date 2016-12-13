@@ -40,11 +40,15 @@ public interface EventControllerAPI {
     @RequestMapping(path = "/{eventId}" ,method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<Event> getEvent(@PathVariable String eventId);
 
-    @ApiOperation(value = "Find events within a certain distance from a given latitude/longitude point")
-    @RequestMapping(path = "/nearbysearch", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Find today's events within a certain distance from a given latitude/longitude point")
+    @RequestMapping(path = "today/nearbysearch", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<Collection<Event>> findEventsInRange(@ApiParam(value = "Latitude", required = true, example = "32.1036330") @RequestParam("lat") Double latitude,
                                                         @ApiParam(value = "Longitude", required = true, example = "34.8046040") @RequestParam("lng") Double longitude,
                                                         @ApiParam(value = "Radius", required = true, example = "3") @RequestParam("rad") Double radius);
+
+    @ApiOperation(value = "Find today's events that match a textual search")
+    @RequestMapping(path = "today/textsearch", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    ResponseEntity<Collection<Event>> findEventsWithKeyword(@ApiParam(value = "keyword", required = true, example = "Matan") @RequestParam("keyword") String keyword);
 
     //POST
     @ApiOperation(value = "Create a new event")

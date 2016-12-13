@@ -48,6 +48,12 @@ public class EventControllerImpl implements EventControllerAPI {
         return ResponseEntity.ok(eventService.findEventsInRange(latitude, longitude, radius));
     }
 
+    @Override
+    @RequestMapping(path = "today/textsearch", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Collection<Event>> findEventsWithKeyword(@RequestParam("keyword") String keyword) {
+        return ResponseEntity.ok(eventService.findEventsWithKeyword(keyword));
+    }
+
     //POST
     @RequestMapping(path = "/event", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Event> createEvent(@Valid @RequestBody CreateEventRequestDTO createEventRequestDTO) {

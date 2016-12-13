@@ -48,6 +48,12 @@ public class EventService {
         return eventsInRange;
     }
 
+    public Collection<Event> findEventsWithKeyword(String keyword) {
+        LocalDate now = LocalDate.now();
+        Collection<Event> eventsInRange = eventRepository.findEventsWithKeyword(keyword, now);
+        return eventsInRange;
+    }
+
     public Event createEvent(LocalDate date, String contact1, String contact2, String venueId) {
      Event event = new Event(date, contact1, contact2, venueId);
      eventRepository.save(event);

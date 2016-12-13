@@ -9,6 +9,7 @@ import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Optional;
 
+import static application.repositories.event.EventQueries.FIND_EVENTS_BY_DATE_QUERY;
 import static application.repositories.event.EventQueries.FIND_EVENTS_IN_RANGE_QUERY;
 
 /**
@@ -23,6 +24,10 @@ public interface EventRepository extends CrudRepository<Event, String>, EventRep
                                         @Param("longitude") Double longitude,
                                         @Param("radius") Double radius,
                                         @Param("date") LocalDate date);
+
+    @Query(FIND_EVENTS_BY_DATE_QUERY)
+    Collection<Event> findEventsWithKeyword(@Param("keyword") String keyword,
+                                            @Param("date") LocalDate date);
 
     Collection<Event> findEventsByDate(LocalDate date);
 }
