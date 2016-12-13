@@ -49,7 +49,7 @@ public class Event extends PersistedObject {
         return date;
     }
 
-    public void setDate(java.util.Date date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 

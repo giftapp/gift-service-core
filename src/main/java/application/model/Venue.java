@@ -1,5 +1,7 @@
 package application.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
@@ -37,6 +39,7 @@ public class Venue extends PersistedObject {
 
     private String imageUrl;
 
+    @JsonIgnore
     @Enumerated(EnumType.STRING)
     private VenueApprovedState approvedState;
 
