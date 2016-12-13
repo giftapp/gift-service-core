@@ -58,8 +58,13 @@ public class EventService {
     }
 
     public Event createEvent(Long dateTimestamp, String contact1, String contact2, String venueId) {
-        Date dateFromTimestamp = new Date(dateTimestamp);
-        return createEvent(dateFromTimestamp, contact1, contact2, venueId);
+        Date eventDate;
+        if (dateTimestamp != null) {
+            eventDate = new Date(dateTimestamp);
+        } else {
+            eventDate = new Date();
+        }
+        return createEvent(eventDate, contact1, contact2, venueId);
     }
 
 }

@@ -4,8 +4,6 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.validator.constraints.NotEmpty;
 
-import javax.validation.constraints.NotNull;
-
 /**
  * Created by matan,
  * On 08/12/2016.
@@ -13,8 +11,7 @@ import javax.validation.constraints.NotNull;
 @ApiModel(value = "CreateEventRequest")
 public class CreateEventRequestDTO {
 
-    @ApiModelProperty(value = "Event date as timestamp", name = "dateTimestamp", example = "1481231631181")
-    @NotNull(message = "Event date cannot be null")
+    @ApiModelProperty(value = "Event date as timestamp, if empty the event will create for the same day", name = "dateTimestamp", example = "1481231631181")
     private Long dateTimestamp;
 
     @ApiModelProperty(value = "Event first contact", name = "contact1", example = "Matan Lachmish")
