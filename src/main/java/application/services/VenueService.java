@@ -34,6 +34,12 @@ public class VenueService {
         return venue;
     }
 
+    public Collection<Venue> getVenueBatch(List<String> venuesId) {
+        Collection<Venue> venueBatch = venueRepository.findVenusBatch(venuesId);
+        return venueBatch;
+    }
+
+
     public Collection<Venue> findVenusInRange(Double lat, Double lng, Double rad) {
         Collection<Venue> venusInRange = venueRepository.findVenusInRange(lat, lng, rad);
         return venusInRange;
