@@ -54,15 +54,15 @@ public class EventService {
         return eventsInRange;
     }
 
-    public Event createEvent(LocalDate date, String contact1, String contact2, String venueId) {
-     Event event = new Event(date, contact1, contact2, venueId);
+    public Event createEvent(LocalDate date, String contact1FirstName, String contact1LastName, String contact1PhoneNumber, String contact2FirstName, String contact2LastName, String contact2PhoneNumber, String venueId) {
+     Event event = new Event(date, contact1FirstName, contact1LastName, contact1PhoneNumber, contact2FirstName, contact2LastName, contact2PhoneNumber, venueId);
      eventRepository.save(event);
      return event;
     }
 
-    public Event createEvent(String dateString, String contact1, String contact2, String venueId) {
+    public Event createEvent(String dateString, String contact1FirstName, String contact1LastName, String contact1PhoneNumber, String contact2FirstName, String contact2LastName, String contact2PhoneNumber, String venueId) {
         LocalDate eventDate = (dateString != null) ? LocalDate.parse(dateString) : LocalDate.now();
-        return createEvent(eventDate, contact1, contact2, venueId);
+        return createEvent(eventDate, contact1FirstName, contact1LastName, contact1PhoneNumber, contact2FirstName, contact2LastName, contact2PhoneNumber, venueId);
     }
 
 }
