@@ -54,6 +54,12 @@ public class EventService {
         return eventsInRange;
     }
 
+    public Collection<Event> findSimilarEvents(String contact1FirstName, String contact1LastName, String contact2FirstName, String contact2LastName, String VenueId) {
+        LocalDate now = LocalDate.now();
+        Collection<Event> similarEvents = eventRepository.findSimilarEvents(contact1FirstName, contact1LastName, contact2FirstName, contact2LastName, VenueId, now);
+        return similarEvents;
+    }
+
     public Event createEvent(LocalDate date, String contact1FirstName, String contact1LastName, String contact1PhoneNumber, String contact2FirstName, String contact2LastName, String contact2PhoneNumber, String venueId) {
      Event event = new Event(date, contact1FirstName, contact1LastName, contact1PhoneNumber, contact2FirstName, contact2LastName, contact2PhoneNumber, venueId);
      eventRepository.save(event);

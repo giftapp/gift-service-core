@@ -50,6 +50,15 @@ public interface EventControllerAPI {
     @RequestMapping(path = "today/textsearch", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<Collection<Event>> findEventsWithKeyword(@ApiParam(value = "keyword", required = true, example = "Matan") @RequestParam("keyword") String keyword);
 
+    @ApiOperation(value = "Find a similar events before creating one")
+    @RequestMapping(path = "similar", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    ResponseEntity<Collection<Event>> findSimilarEvents(
+            @ApiParam(value = "contact1FirstName", required = false, example = "Matan") @RequestParam("contact1FirstName") String contact1FirstName,
+            @ApiParam(value = "contact1LastName", required = false, example = "Lachmish") @RequestParam("contact1LastName") String contact1LastName,
+            @ApiParam(value = "contact2FirstName", required = false, example = "Vera") @RequestParam("contact2FirstName") String contact2FirstName,
+            @ApiParam(value = "contact2LastName", required = false, example = "Vilchevsky") @RequestParam("contact2LastName") String contact2LastName,
+            @ApiParam(value = "VenueId", required = false, example = "Vilchevsky") @RequestParam("80ab8034-e5cf-4dbf-bb10-af3f37b93849") String VenueId);
+
     //POST
     @ApiOperation(value = "Create a new event")
     @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)

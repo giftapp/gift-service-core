@@ -16,4 +16,11 @@ public class EventQueries {
             "e.contact2LastName LIKE CONCAT('%',:keyword,'%') OR " +
             "v.name LIKE CONCAT('%',:keyword,'%'))";
 
+    static final String FIND_SIMILAR_EVENTS_QUERY = "SELECT e FROM Event e WHERE e.date = :date AND " +
+            "(e.contact1FirstName LIKE :contact1FirstName OR e.contact1FirstName LIKE :contact2FirstName OR " +
+            "e.contact1LastName LIKE :contact1LastName OR e.contact1LastName LIKE :contact2LastName OR " +
+            "e.contact2FirstName LIKE :contact1FirstName OR e.contact2FirstName LIKE :contact2FirstName OR " +
+            "e.contact2LastName LIKE :contact1LastName OR e.contact2LastName LIKE :contact2LastName OR " +
+            "e.venueId LIKE :VenueId)";
+
 }
