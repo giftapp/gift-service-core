@@ -44,4 +44,9 @@ public class VenueService {
         Collection<Venue> venusInRange = venueRepository.findVenusInRange(lat, lng, rad);
         return venusInRange;
     }
+
+    public Collection<Venue> findVenuesWithKeyword(String keyword) {
+        Collection<Venue> venuesInRange = venueRepository.findVenuesWithKeyword(keyword);
+        return venuesInRange;
+    }
 }

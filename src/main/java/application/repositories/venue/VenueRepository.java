@@ -9,8 +9,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
-import static application.repositories.venue.VenueQueries.FIND_VENUS_BATCH_QUERY;
-import static application.repositories.venue.VenueQueries.FIND_VENUS_IN_RANGE_QUERY;
+import static application.repositories.venue.VenueQueries.*;
 
 /**
  * Created by matan on 13/05/2016.
@@ -23,6 +22,9 @@ public interface VenueRepository extends CrudRepository<Venue, String> {
     Collection<Venue> findVenusInRange(@Param("latitude") Double latitude,
                                        @Param("longitude") Double longitude,
                                        @Param("radius") Double radius);
+
+    @Query(FIND_VENUES_BY_DATE_QUERY)
+    Collection<Venue> findVenuesWithKeyword(@Param("keyword") String keyword);
 
     @Query(FIND_VENUS_BATCH_QUERY)
     Collection<Venue> findVenusBatch(@Param("venuesId") List<String> venuesId);

@@ -53,4 +53,8 @@ public interface VenueControllerAPI {
                                                        @ApiParam(value = "Longitude", required = true, example = "34.8046040") @RequestParam("lng") Double longitude,
                                                        @ApiParam(value = "Radius", required = true, example = "3") @RequestParam("rad") Double radius);
 
+    @ApiOperation(value = "Find venues that match a textual search")
+    @RequestMapping(path = "/textsearch", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    ResponseEntity<Collection<Venue>> findVenuesWithKeyword(@ApiParam(value = "keyword", required = true, example = "Luca") @RequestParam("keyword") String keyword);
+
 }

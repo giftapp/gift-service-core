@@ -46,10 +46,15 @@ public class VenueControllerImpl implements VenueControllerAPI {
         return ResponseEntity.ok(venueService.getVenueBatch(venuesId));
     }
 
-
     @Override
     @RequestMapping(path = "/nearbysearch", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Collection<Venue>> findVenusInRange(@RequestParam("lat") Double latitude, @RequestParam("lng") Double longitude, @RequestParam("rad") Double radius) {
         return ResponseEntity.ok(venueService.findVenusInRange(latitude, longitude, radius));
+    }
+
+    @Override
+    @RequestMapping(path = "/textsearch", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Collection<Venue>> findVenuesWithKeyword(@RequestParam("keyword") String keyword) {
+        return ResponseEntity.ok(venueService.findVenuesWithKeyword(keyword));
     }
 }
