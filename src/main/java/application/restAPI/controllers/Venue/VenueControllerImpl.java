@@ -36,7 +36,7 @@ public class VenueControllerImpl implements VenueControllerAPI {
 
     @Override
     @RequestMapping(path = "/{venueId}" ,method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Venue> getVenue(@PathVariable String venueId) {
+    public ResponseEntity<Venue> getVenue(@PathVariable("venueId") String venueId) {
         return ResponseEntity.ok(venueService.getVenue(venueId));
     }
 

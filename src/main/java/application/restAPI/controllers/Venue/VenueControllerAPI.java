@@ -39,7 +39,7 @@ public interface VenueControllerAPI {
             value = "Get venue",
             notes = "Get a venue with a specific id")
     @RequestMapping(path = "/{venueId}" ,method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<Venue> getVenue(@PathVariable String venueId);
+    ResponseEntity<Venue> getVenue(@PathVariable("venueId") String venueId);
 
     @ApiOperation(
             value = "Get venues",

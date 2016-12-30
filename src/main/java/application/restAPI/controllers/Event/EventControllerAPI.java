@@ -38,7 +38,7 @@ public interface EventControllerAPI {
             value = "Get event",
             notes = "Get a event with a specific id")
     @RequestMapping(path = "/{eventId}" ,method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<Event> getEvent(@PathVariable String eventId);
+    ResponseEntity<Event> getEvent(@PathVariable("eventId") String eventId);
 
     @ApiOperation(value = "Find today's events within a certain distance from a given latitude/longitude point")
     @RequestMapping(path = "today/nearbysearch", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)

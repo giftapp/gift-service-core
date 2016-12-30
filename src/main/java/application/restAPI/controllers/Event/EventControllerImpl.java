@@ -38,7 +38,7 @@ public class EventControllerImpl implements EventControllerAPI {
 
     @Override
     @RequestMapping(path = "/{eventId}" ,method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Event> getEvent(@PathVariable String eventId) {
+    public ResponseEntity<Event> getEvent(@PathVariable("eventId") String eventId) {
         return ResponseEntity.ok(eventService.getEvent(eventId));
     }
 
