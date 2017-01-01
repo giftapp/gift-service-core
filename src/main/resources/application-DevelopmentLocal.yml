@@ -22,3 +22,7 @@ spring:
 
 outbound:
   smsDisabled: true
+
+security:
+  shouldAcceptDefaultVerificationCode: true
+  defaultVerificationCode: "00000"

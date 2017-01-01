@@ -11,6 +11,7 @@ import application.security.utils.JwtTokenUtil;
 import application.utils.TimeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -45,6 +46,12 @@ public class PhoneNumberChallengeAuthenticationProvider implements Authenticatio
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
 
+    @Value("${security.shouldAcceptDefaultVerificationCode}")
+    private Boolean shouldAcceptDefaultVerificationCode;
+
+    @Value("${security.defaultVerificationCode}")
+    private String defaultVerificationCode;
+
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         Optional OptionalPhoneNumber = Optional.ofNullable(authentication.getPrincipal());
@@ -67,7 +74,7 @@ public class PhoneNumberChallengeAuthenticationProvider implements Authenticatio
             throw new BadCredentialsException("Challenge has been expired");
         }
 
-        if (!phoneNumberChallenge.getVerificationCode().equals(verificationCode)) {
+        if (!phoneNumberChallenge.getVerificationCode().equals(verificationCode) && !(shouldAcceptDefaultVerificationCode && verificationCode.equals(defaultVerificationCode))) {
             throw new BadCredentialsException("Invalid Verification Code Credentials");
         }
 

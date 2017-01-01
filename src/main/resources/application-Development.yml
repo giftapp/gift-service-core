@@ -1,0 +1,3 @@
+security:
+  shouldAcceptDefaultVerificationCode: true
+  defaultVerificationCode: "00000"

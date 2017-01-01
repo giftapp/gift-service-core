@@ -4,4 +4,4 @@ VOLUME /tmp
 ADD build/libs/gift-service-core-0.1.0.jar app.jar
 EXPOSE 443
 RUN sh -c 'touch /app.jar'
-ENTRYPOINT ["java","-Dspring.profiles.active=Production","-Djava.security.egd=file:/dev/./urandom","-jar","/app.jar"]
+ENTRYPOINT ["java","-Dspring.profiles.active=Development","-Djava.security.egd=file:/dev/./urandom","-jar","/app.jar"]
