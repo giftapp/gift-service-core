@@ -20,10 +20,6 @@ public class Gift extends PersistedObject {
     @OneToOne
     private Payment payment;
 
-    @NotNull
-    @OneToOne
-    private Toast toast;
-
     protected Gift() {
 
     }
@@ -55,13 +51,5 @@ public class Gift extends PersistedObject {
 
     public void setPayment(Payment payment) {
         this.payment = payment;
-    }
-
-    public Toast getToast() {
-        return toast;
-    }
-
-    public void setToast(Toast toast) {
-        this.toast = toast;
     }
 }

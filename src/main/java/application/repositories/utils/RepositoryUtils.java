@@ -3,6 +3,7 @@ package application.repositories.utils;
 import application.model.*;
 import application.repositories.event.EventRepository;
 import application.repositories.gift.GiftRepository;
+import application.repositories.toast.ToastRepository;
 import application.repositories.user.UserRepository;
 import application.repositories.venue.VenueRepository;
 import application.restAPI.errorHandling.exceptions.InvalidObjectIdException;
@@ -35,6 +36,9 @@ public class RepositoryUtils {
     @Autowired
     private EventRepository eventRepository;
 
+    @Autowired
+    private ToastRepository toasRepository;
+
     public <T> T validateObjectExist(Class<T> type, String id) throws InvalidObjectIdException, IllegalArgumentException, ObjectNotFoundException {
         Optional<? extends PersistedObject> result;
 
@@ -46,6 +50,8 @@ public class RepositoryUtils {
             result = this.giftRepository.findById(id);
         } else if (type == Event.class) {
             result = this.eventRepository.findById(id);
+        } else if (type == Toast.class) {
+            result = this.toasRepository.findById(id);
         } else {
             throw new IllegalArgumentException("Type not supported");
         }

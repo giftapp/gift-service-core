@@ -15,15 +15,26 @@ public class Toast extends PersistedObject {
     @NotNull
     private String eventId;
 
+    @NotNull
+    private String giftPresenters;
+
+    private String videoUrl;
+
+    private String imageUrl;
+
     private String text;
 
     protected Toast() {
 
     }
 
-    public Toast(String userId, String eventId) {
+    public Toast(String userId, String eventId, String giftPresenters, String videoUrl, String imageUrl, String text) {
         this.userId = userId;
         this.eventId = eventId;
+        this.giftPresenters = giftPresenters;
+        this.videoUrl = videoUrl;
+        this.imageUrl = imageUrl;
+        this.text = text;
     }
 
     public String getUserId() {
@@ -40,6 +51,30 @@ public class Toast extends PersistedObject {
 
     public void setEventId(String eventId) {
         this.eventId = eventId;
+    }
+
+    public String getGiftPresenters() {
+        return giftPresenters;
+    }
+
+    public void setGiftPresenters(String giftPresenters) {
+        this.giftPresenters = giftPresenters;
+    }
+
+    public String getVideoUrl() {
+        return videoUrl;
+    }
+
+    public void setVideoUrl(String videoUrl) {
+        this.videoUrl = videoUrl;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public String getText() {
