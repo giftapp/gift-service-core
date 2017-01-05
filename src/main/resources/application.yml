@@ -11,8 +11,8 @@ server:
     protocol: TLS
 
 multipart:
-  max-file-size: 2Mb
-  max-request-size: 2Mb
+  max-file-size: 7Mb
+  max-request-size: 7Mb
 
 storage:
   location: files
