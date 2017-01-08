@@ -46,10 +46,10 @@ public class PhoneNumberChallengeAuthenticationProvider implements Authenticatio
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
 
-    @Value("${security.shouldAcceptDefaultVerificationCode}")
+    @Value("${security.shouldAcceptDefaultVerificationCode:false}")
     private Boolean shouldAcceptDefaultVerificationCode;
 
-    @Value("${security.defaultVerificationCode}")
+    @Value("${security.defaultVerificationCode:null}")
     private String defaultVerificationCode;
 
     @Override
