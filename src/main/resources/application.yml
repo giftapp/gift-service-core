@@ -14,8 +14,10 @@ multipart:
   max-file-size: 7Mb
   max-request-size: 7Mb
 
-storage:
-  location: files
+cloudinary:
+  cloud-name: "giftapp-test"
+  api-key: "838523332537882"
+  api-secret: "x2NlhW43-eQ9e4dAK0R5lNEeRr0"
 
 spring:
   datasource:

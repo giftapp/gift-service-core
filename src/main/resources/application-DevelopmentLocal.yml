@@ -2,9 +2,6 @@ server:
   contextPath: /api/v1
   port: 8443
 
-storage:
-  location: /Users/matan/Downloads/gift/files
-
 spring:
   datasource:
       url: jdbc:mysql://localhost:3306/giftdb?useUnicode=yes&characterEncoding=UTF-8
