@@ -1,16 +1,17 @@
 package application.restAPI.controllers.Toast;
 
 import application.model.Toast;
+import application.restAPI.controllers.Toast.dto.CreateToastRequestDTO;
 import application.services.ToastService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 /**
  * Created by matan,
@@ -30,6 +31,21 @@ public class ToastControllerImpl implements ToastControllerAPI {
     @RequestMapping(path = "/{toastId}" ,method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Toast> getToast(@PathVariable("toastId") String toastId) {
         return ResponseEntity.ok(toastService.getToast(toastId));
+    }
+
+    //POST
+    @RequestMapping(path = "/me", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Toast> createToast(@AuthenticationPrincipal String loggedInUserId, @Valid @RequestBody CreateToastRequestDTO createToastRequestDTO) {
+        return ResponseEntity.ok(toastService.createToast(
+                loggedInUserId,
+                createToastRequestDTO.getEventId(),
+                createToastRequestDTO.getToastFlavor(),
+                createToastRequestDTO.getGiftPresenters(),
+                createToastRequestDTO.getVideoUrl(),
+                createToastRequestDTO.getImageUrl(),
+                createToastRequestDTO.getText()
+                )
+        );
     }
 
 }

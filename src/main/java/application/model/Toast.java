@@ -1,6 +1,8 @@
 package application.model;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -9,11 +11,19 @@ import javax.validation.constraints.NotNull;
 @Entity
 public class Toast extends PersistedObject {
 
+    public enum ToastFlavor {
+        video, text
+    }
+
     @NotNull
     private String userId;
 
     @NotNull
     private String eventId;
+
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    private ToastFlavor toastFlavor;
 
     @NotNull
     private String giftPresenters;
@@ -28,9 +38,10 @@ public class Toast extends PersistedObject {
 
     }
 
-    public Toast(String userId, String eventId, String giftPresenters, String videoUrl, String imageUrl, String text) {
+    public Toast(String userId, String eventId, ToastFlavor toastFlavor, String giftPresenters, String videoUrl, String imageUrl, String text) {
         this.userId = userId;
         this.eventId = eventId;
+        this.toastFlavor = toastFlavor;
         this.giftPresenters = giftPresenters;
         this.videoUrl = videoUrl;
         this.imageUrl = imageUrl;
@@ -51,6 +62,14 @@ public class Toast extends PersistedObject {
 
     public void setEventId(String eventId) {
         this.eventId = eventId;
+    }
+
+    public ToastFlavor getToastFlavor() {
+        return toastFlavor;
+    }
+
+    public void setToastFlavor(ToastFlavor toastFlavor) {
+        this.toastFlavor = toastFlavor;
     }
 
     public String getGiftPresenters() {
