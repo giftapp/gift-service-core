@@ -19,8 +19,8 @@ public class FacebookServiceImpl implements FacebookService {
 
     private static final Logger logger = LoggerFactory.getLogger(FacebookServiceImpl.class);
 
-    private static final String FB_APP_ID = "223077214742059";
-    private static final String FB_APP_SECRET = "63f22cc75e015205555ffb925a882c09";
+    private static final String FB_APP_ID = "801889286579558";
+    private static final String FB_APP_SECRET = "d4c25a68db5c6dbab8bcaca7bfe57e6e";
 
     private DefaultFacebookClient appFacebookClient;
     private FacebookClient.AccessToken appAccessToken;
